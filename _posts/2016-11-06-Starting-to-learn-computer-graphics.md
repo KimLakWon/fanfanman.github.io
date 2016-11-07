@@ -12,10 +12,9 @@ Learning material is from [DukeCS 344](https://www.cs.duke.edu/courses/compsci34
 ---
 
 ### Learning Progress
-Well, the learning progress will be recorded down here, in order to encourage me to learn daily (hope so!)
+Well, the learning progress will be recorded down here, in order to encourage me to learn daily (hope so)
 
-| Date | Topic | Reading |
-| Nov 6th | [Overview]() | Maybe |
+| Date | Topic | Reading | learning note |
+| Nov 7th | Overview | Intro to Ray Tracing | [learning note 1]
 
-
-Calm down from online-shopping and keep learning!
+- Calm down from online-shopping and keep learning!
