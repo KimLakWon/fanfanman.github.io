@@ -11,3 +11,10 @@ Learning material is from [DukeCS 344](https://www.cs.duke.edu/courses/compsci34
 
 ---
 
+### Learning Progress
+Well, the learning progress will be recorded down here, in order to encourage me to learn daily (hope so!)
+
+| Date | Topic | Reading |
+| Nov 6th | [Overview]() | Maybe |
+
+Calm down from online-shopping and keep learning!
