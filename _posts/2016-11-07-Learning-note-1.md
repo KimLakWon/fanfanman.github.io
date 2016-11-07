@@ -7,8 +7,10 @@ categories: jekyll update
 tags: 
 ---
 
-- Learning material is from [DukeCS 344](https://www.cs.duke.edu/courses/compsci344/spring15/). And, a schedule is recorded [here](../../../2016/11/06/Starting-to-learn-computer-graphics.html).
-- PPTS are [Overview](web.ics.purdue.edu/~zhan2600/assets/dukecs344/01intro.pdf), [Intro to Raytracing](https://www.cs.duke.edu/courses/compsci344/spring15/classwork/02_raytracing/), [Ray Tracing Tutorial](http://www.siggraph.org/education/materials/HyperGraph/raytrace/rtrace0.htm)
+- Learning material is from [DukeCS 344](https://www.cs.duke.edu/courses/compsci344/spring15/). And, a schedule is recorded [here](../../../../2016/11/06/Starting-to-learn-computer-graphics.html).
+- PPTS are [Overview](https://web.ics.purdue.edu/~zhan2600/assets/dukecs344/01intro.pdf), [Intro to Raytracing](https://www.cs.duke.edu/courses/compsci344/spring15/classwork/02_raytracing/), [Ray Tracing Tutorial](http://www.siggraph.org/education/materials/HyperGraph/raytrace/rtrace0.htm)
+
+---
 
 ## Overview
 - Problems in graphics
