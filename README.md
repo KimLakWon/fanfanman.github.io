@@ -1,2 +1,4 @@
-Because last time when I tried to update this page, I didn't commit the changes well, when I try to update it this time, the page crashed.
-So, I have refixed this page... Hope it will work before tomorrow
+### Nov 6th 2016
+- Today I have fixed my github homepage
+- The github page can work well, although it's ugly, it's efficient
+- I need to update this blog weekly, keep fighting!
