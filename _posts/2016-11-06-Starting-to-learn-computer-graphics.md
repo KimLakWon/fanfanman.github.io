@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Starting to learn computer graphics"
-date:   2015-12-29 16:57:00 -0500
+date:   2016-11-06 22:56:00 -0500
 comments: false
 categories: jekyll update
 tags: 
