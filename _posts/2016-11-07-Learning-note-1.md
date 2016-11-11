@@ -4,7 +4,7 @@ title:  "Computer Graphics Learning Note 1"
 date:   2016-11-07 13:00:00 -0500
 comments: false
 categories: jekyll update
-tags: 
+tags: RayTracing
 ---
 
 - Learning material is from [DukeCS 344](https://www.cs.duke.edu/courses/compsci344/spring15/). And, a schedule is recorded [here](../../../2016/11/07/Starting-to-learn-computer-graphics.html).
