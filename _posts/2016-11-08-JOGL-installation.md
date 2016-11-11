@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Computer Graphics How to Install JOGL in Eclipse Windows 7"
+title:  "Computer Graphics: How to Install JOGL in Eclipse Windows 7"
 date:   2016-11-08 13:00:00 -0500
 comments: false
 categories: jekyll update
