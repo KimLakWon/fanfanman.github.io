@@ -19,4 +19,4 @@ Well, the learning progress will be recorded here, in order to encourage me to l
 | Nov 8th | [JOGL installation guide]() |
 | NOv 11th | [learning note 2]() |
 
-- Calm down from online-shopping and keep learning _(:°з」∠)_!
+- Calm down from online-shopping and keep learning /_(:°з」∠)/_!
