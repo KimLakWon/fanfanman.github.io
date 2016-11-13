@@ -7,7 +7,7 @@ categories: jekyll update
 tags: jogl
 ---
 
-Learning material is from [DukeCS 344](https://www.cs.duke.edu/courses/compsci344/spring15/).
+Learning material is from [DukeCS 344](https://www.cs.duke.edu/courses/compsci344/spring15/){:target="_blank"}.
 
 ---
 

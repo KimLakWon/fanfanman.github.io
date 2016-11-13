@@ -7,14 +7,14 @@ categories: jekyll update
 tags: RayTracing
 ---
 
-Readings are [Intro to Ray Tracing 2](http://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-ray-tracing/raytracing-algorithm-in-a-nutshell), [Lighting PPT](http://web.ics.purdue.edu/~zhan2600/assets/dukecs344/02lighting.pdf)
+Readings are [Intro to Ray Tracing 2](http://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-ray-tracing/raytracing-algorithm-in-a-nutshell){:target="_blank"}, [Lighting PPT](http://web.ics.purdue.edu/~zhan2600/assets/dukecs344/02lighting.pdf){:target="_blank"}.
 
 ## Intro to Ray Tracing 2
 - The advantage of Ray Tracing: only a few lines to code; disadvantage: time-consuming.
 - Mainly consist of two steps: one step to determine whether object is visible, and the other step to shade the points.
 
 ## Shading Models
-- This lecture [PPT](http://web.ics.purdue.edu/~zhan2600/assets/dukecs344/02lighting.pdf) is very informative on shading models.
+- This lecture [PPT](http://web.ics.purdue.edu/~zhan2600/assets/dukecs344/02lighting.pdf){:target="_blank"} is very informative on shading models.
 - Based on geometry, lighting and material, there are several layers of lighting which perfects the simulation.
 - 1st layer / Diffuse reflection(漫反射): where light goes everywhere, and shades are colored by object color. This light has already been included in Ray Tracing model.
      - Light reflects equally in all directions
@@ -30,5 +30,5 @@ Readings are [Intro to Ray Tracing 2](http://www.scratchapixel.com/lessons/3d-ba
      - bright near mirror configuration
      - Reflected light strength depends on: specular coefficient, light intensity, angle between viewer and mirror direction, air permeation constant.
 - Examples of shading models are:
-     - ![Diffuse shading](http://web.ics.purdue.edu/~zhan2600/assets/dukecs344/diffuseshading.png)
-     - ![Diffuse + Specular shading](http://web.ics.purdue.edu/~zhan2600/assets/dukecs344/specularshading.png)
+     - Diffuse shading: ![Diffuse shading](http://web.ics.purdue.edu/~zhan2600/assets/dukecs344/diffuseshading.png)
+     - Diffuse + Specular shading: ![Diffuse + Specular shading](http://web.ics.purdue.edu/~zhan2600/assets/dukecs344/specularshading.png)
