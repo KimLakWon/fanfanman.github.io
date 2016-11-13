@@ -12,9 +12,11 @@ Learning material is from [DukeCS 344](https://www.cs.duke.edu/courses/compsci34
 ---
 
 ### Learning Progress
-Well, the learning progress will be recorded down here, in order to encourage me to learn daily (hope so)
+Well, the learning progress will be recorded here, in order to encourage me to learn it every day (hope so).
 
-| Date | Topic | Reading | learning note |
-| Nov 7th | Overview | Intro to Ray Tracing | [learning note 1]
+| Date | learning note |
+| Nov 7th | [learning note 1]() |
+| Nov 8th | [JOGL installation guide]() |
+| NOv 11th | [learning note 2]() |
 
 - Calm down from online-shopping and keep learning!
