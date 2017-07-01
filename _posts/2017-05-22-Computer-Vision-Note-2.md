@@ -37,7 +37,7 @@ outim = imfilter(im, h)
 - Edge is a place of rapid change in the image intensity function. So finding edges is somehow related to finding local extremes in derivatives.
 - Basic idea: 1. define differential operators: when applied to the image, it returns some derivatives. 2. We apply these operators as masks/kernels that compute the image gradient function. 3. Threshold this gradient function to select the edges.
 - Gradient points in the direction of most rapid increase in the intensity, in computer science, we need to do discrete gradient. So, horizongtal gradient would become df/dx = [f(x+1, y) - f(x, y)]/1
-- discrete gradient operator to deal with images would look like ![gradientoperator](https://fanfanman.github.io/assets/udacitycv/cvgradientoperator.png) and Sobel operator is like ![sobeloperator](https://fanfanman.github.io/assets/udacitycv/cvsobeloperator.png)
+- discrete gradient operator to deal with images would look like ![gradientoperator](https://fanfanman.github.io/assets/udacitycv/cvgradientoperator.png) and Sobel operator is like ![sobeloperator](https://fanfanman.github.io/assets/udacitycv/cvsobeloperator.png =250x200)
 - Some well-known gradient operators: Sobel, Prewitt, Roberts. Matlab filter function: filt = fspecial('sobel'), which applies sobel operator.
 - Keep in mind the difference between correlation and convolution in image processing.
 - But in real world, due to noises the gradient operator may fail somehow, so we may need to do smoothing first, or smoothing after gradient operator. (It's a bit like in signal system, all about operators). Varying filter rather than filtering after filtering usually saves time and space.
