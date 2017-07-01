@@ -13,4 +13,5 @@ tags:
 - Pinhole camera: we make an aperture on a barrier, so that the projection of object can form a complete graph on the film.
 - Instead, we use a lens to make projection in real world. Thin lense theorem: 1/z1 + 1/z2 = 1/f (f = focus)
 - Varying focus can change the depth of field to be shown on screen.
+- If one needs to blur remote scenes, he needs to enlarge aperture, such that scenes close the image will get blurred, as shown in ![aperture](https://fanfanman.github.io/assets/udacitycv/cvapertureeffect.png). If there's a scene close to the image, a larger aperture will form a larger image on the screen, which seems blurer.
 - 
