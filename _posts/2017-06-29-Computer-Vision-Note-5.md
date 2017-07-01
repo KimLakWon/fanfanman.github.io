@@ -21,3 +21,4 @@ tags:
 - In order to get rid of high frequencies, we can put a lowpass filter at source, then we will take less high-frequency info from the source, thus we won't worry about aliasing in reconstruction.
 - Comb function (impulse train). Using the property that, as the spacing of impulse train gets larger in space, it gets narrower in frequency. 
 - Sampling is just multiplying a continuous signal by a discrete comb. And if the distance in original comb is M, the distance in its fourier is 1/M. So, by using the graph in Fourier transform within range 2/M, we can accurately reconstruct original graph.
+- An image to an electrical engineer is usually processed in frequencies, but computer scientists usually think of images as data structures instead of signals.
