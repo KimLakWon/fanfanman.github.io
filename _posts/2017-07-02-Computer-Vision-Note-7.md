@@ -25,4 +25,4 @@ tags:
 ### Lesson 3B-l3 Stereo correspondence
 - Beyond the epipolar constraint, we need more constraints to help project left-image points onto right-image, such as similarity, uniqueness, ordering. This is called correspondence problem, which helps us to find matches in the image pair.
 - In order to find matching point in the right image, we search along a slim window to find most similar (in correlation) point. This can serve as a similarity constraint.
-- 
+- Best fitting of left and right image pixels can be reached by dynamic programming.
