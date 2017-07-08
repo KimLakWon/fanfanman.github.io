@@ -7,5 +7,6 @@ categories: jekyll disqus
 tags: 
 ---
 
-### Disqus Setup Test
-In this post, I tried out the disqus function.
+- Since Disqus is a popular feature to Jekyll blogs, I tried to add it to my personal site in this post.
+- The setup instructions could be found on Disqus website.
+- And hooray! Here goes the Disqus features!
