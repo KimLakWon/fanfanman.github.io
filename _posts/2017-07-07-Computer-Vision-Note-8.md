@@ -17,5 +17,11 @@ tags:
 - In space coordinate transformations, there are transform operators, rotation operators and etc.
 - Just found a good way to express rotation coordinates, this is the term used in aero engineering: heading, pitch and roll, these are the three parameters in spherical coordinates.
 - All about transformation, translation and rotation.
-- EXtrinsic parameter matrix transfers a matrix from world to camera. There are 6 degrees of freedom.
+- EXtrinsic parameter matrix transfers a matrix from world coordinates to camera coordinates. There are 6 degrees of freedom. 即，通过矩阵变换将自然坐标系内的物体转变到照相机坐标系的坐标矩阵。
+
+### Lesson 3C-L2 Intrinsic Camera Parameters
+- 即，将照相机坐标系内的三维图像投射到镜头上
+- The trick is also about expressing the intrinsic transformation oeprator in matrix. Some parameters to be considered: camera focal length, pixel x size, pixel y size, two offsets in xy directions, and skews of coordinate system.
+- In conclusion, a camera operator M is described by several parameters: translation T of the optical center fromt he origin of world coordinates; rotation R of the camera system; focal lenght and aspect (f, a), principle point (x', y') and skew (s)
+- Projection equation is the cumulative effect of all parameters: M = intrinsic * projection * rotation * translation, 11 degrees of freedom in total.
 - 
