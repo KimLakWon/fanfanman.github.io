@@ -27,4 +27,4 @@ tags:
 
 ### Lesson 3C-L3 Calibrating Cameras
 - Direct linear calibration, point on screen (u, v, 1) = operator M (3*4 matrix) * real world coordinates (X, Y, Z, 1)
-- 
+- Let's continue
