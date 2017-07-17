@@ -41,4 +41,12 @@ tags:
 ### Lesson 3D-L5 Fundamental Matrix
 - Main idea of weak calibration: estimate epipolar geometry from a (redundant) set of point correspondences between two uncalibrated cameras.
 - For uncalibrated cameras, we use fundamental matrix instead of essential matrix
-- Didn't understand very well, let's stop here...
+- Fundamental matrix is 3*3, singular, maps from a point to a line.
+- Fundamental matrix relates pixel coordinates in the two views, and is more general form than essential matrix, bc we remove the need to know intrinsic parameters
+- So if we estimate fundamental matrix from correspondences in pixel coordinates, we can reconstruct epipolar geometry without intrinsic or extrinsic parameters.
+- Each point correspondence generates one constraint on F.
+- There's a very unstable algorithm called Eight-point algorithm to solve F.
+- Summary:
+	- For 2-views, there is a geometric relationship that defines the relation between rays in one view to rays in the other - epipolar geometry
+	- These relationships can be captured algebraically as well: calibrated - essential matrix; uncalibrated - fundamental matrix
+	- This relation can be estimated from point correspondences.
