@@ -32,5 +32,5 @@ tags:
 - Some properties about harris detector: mostly invariant to additive and multiplicative intensity cahnges, but may have threshold issue for multiplicative; invariant to image scale
 - How to scale pictures to the same size to reach scale invariance?
 - One method: at a point, compute the scale invariant function over different size neighborhoods
-- Solution: design a function on the region, which is not affected by the size but will be the same for "corresponding regions", even if they are at different sizes/scales
-- 
+- Solution: design a function on the region, which is not affected by the size but will be the same for "corresponding regions", even if they are at different sizes/scales. For example, use average intensity as a scale
+- Key point localization: general indea: find robust extremum (max of min) both in space and in scale.
