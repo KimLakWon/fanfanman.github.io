@@ -17,3 +17,20 @@ tags:
 - Characteristics of good features: repeatability/precision, Saliency/Matchability/Uniquenss, Compactness/Efficiency, Locality/SmallArea
 
 ### Lesson 4A-L2 Finding Corners
+- Basic idea: we need a change in gradience in more than one direction.
+- Harris corners: approximation model and error model: calculate the diff between intensity at a point and intensity at a slightly shifted point, which is like calculating derivative of gradience.
+- There's a lot of math and matrix operations, check wikipedia for more info.
+- Harris detector algorithm:
+	- Compute Gaussian derivatives at each pixel
+	- Compute second moment matrix M in a Gaussian window around each pixel
+	- Compute corner response function R
+	- Threshold R
+	- Find local maxima of response function (nonmaximum suppression)
+- Other corners: Shi-Tomasi 94
+
+### Lesson 4A-L3 Scale Invariance
+- Some properties about harris detector: mostly invariant to additive and multiplicative intensity cahnges, but may have threshold issue for multiplicative; invariant to image scale
+- How to scale pictures to the same size to reach scale invariance?
+- One method: at a point, compute the scale invariant function over different size neighborhoods
+- Solution: design a function on the region, which is not affected by the size but will be the same for "corresponding regions", even if they are at different sizes/scales
+- 
