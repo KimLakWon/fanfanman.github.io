@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fan Zhang - Computer Vision Note 8</title>
+  <meta name="author" content="Fan Zhang" />
+  <meta name="description" content="The blog of Fan Zhang" />
+  <link rel="canonical" href="http://localhost:4000/computervision/2017/07/07/Computer-Vision-Note-8.html" />
+
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="alternate" type="application/atom+xml" title="Fan Zhang" href="http://localhost:4000/atom.xml" />
+
+  <link rel="stylesheet" href="/assets/css/all.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="four columns sidebar">
+      <nav>
+  <h1>Hi.</h1>
+  <a href="/">
+    
+    <img src="/logo.png" id="logo" alt="Blog logo" height="100px" width="100px"/>
+    
+  </a>
+  <h2>I'm <a href="/">Fan Zhang</a>.</h2>
+  <div id="bio">
+    <p>Here should be something witty, but clearly I don't have one.</p>
+    <p>Some of my projects could be found <a href="/project.html">here</a>.</p>
+  </div>
+  <div id="social">
+    Follow me:
+<div id="stalker">
+  
+  <a target="_blank" title="fanfanman on Github" href="https://github.com/fanfanman">
+    <i class="fa fa-github-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a title="Fan Zhang on Facebook" href="https://facebook.com/profile.php?id=100005663117201">
+    <i class="fa fa-facebook-square"></i>
+  </a>
+  
+
+  
+
+  
+  <a target="_blank" title="Fan Zhang on LinkedIn" href="https://www.linkedin.com/in/fan-zhang-88381a119">
+    <i class="fa fa-linkedin-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+  <a target="_blank" title="Atom feed" id="atom" href="/atom.xml">
+    <i class="fa fa-rss-square"></i>
+  </a>
+  
+</div>
+
+  </div>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <p class="meta">
+  July 07, 2017 
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">Computer Vision Note 8</h1>
+
+<div id="post">
+  <h3 id="lesson-3c-l1-extrinsic-camera-parameters">Lesson 3C-L1 Extrinsic Camera Parameters</h3>
+<ul>
+  <li>This lesson is about how to project coordinate system to the camera.</li>
+  <li>geometric camera calibration: if we want to use the camera to tell us things about the world, we need the relationship between coordinates in the world and coordinates in the image.</li>
+  <li>geometric camera calibration is composed of 2 transformations: extrinsic parameters, and intrinsic parameters</li>
+  <li>extrinsic parameters: from some (arbitrary) world coordinate system to the camera’s 3D coordinate system</li>
+  <li>intrinsic parameters: from the 3D coordinates in the camera frame to the 2D image plane via projection</li>
+  <li>In brief, geometric camera calibration is about coordinate transformation, simple.</li>
+  <li>In space coordinate transformations, there are transform operators, rotation operators and etc.</li>
+  <li>Just found a good way to express rotation coordinates, this is the term used in aero engineering: heading, pitch and roll, these are the three parameters in spherical coordinates.</li>
+  <li>All about transformation, translation and rotation.</li>
+  <li>Extrinsic parameter matrix transfers a matrix from world coordinates to camera coordinates. There are 6 degrees of freedom. 即，通过矩阵变换将自然坐标系内的物体转变到照相机坐标系的坐标矩阵。</li>
+</ul>
+
+<h3 id="lesson-3c-l2-intrinsic-camera-parameters">Lesson 3C-L2 Intrinsic Camera Parameters</h3>
+<ul>
+  <li>即，将照相机坐标系内的三维图像投射到镜头上</li>
+  <li>The trick is also about expressing the intrinsic transformation oeprator in matrix. Some parameters to be considered: camera focal length, pixel x size, pixel y size, two offsets in xy directions, and skews of coordinate system.</li>
+  <li>In conclusion, a camera operator M is described by several parameters: translation T of the optical center fromt he origin of world coordinates; rotation R of the camera system; focal lenght and aspect (f, a), principle point (x’, y’) and skew (s)</li>
+  <li>Projection equation is the cumulative effect of all parameters: M = intrinsic * projection * rotation * translation, 11 degrees of freedom in total.</li>
+</ul>
+
+<h3 id="lesson-3c-l3-calibrating-cameras">Lesson 3C-L3 Calibrating Cameras</h3>
+<ul>
+  <li>Direct linear calibration, point on screen (u, v, 1) = operator M (3*4 matrix) * real world coordinates (X, Y, Z, 1)</li>
+  <li>Trying hard to update every day</li>
+  <li>It seems that I have to stop here, because I didn’t get it. The geometric metrix transform is complicated.</li>
+</ul>
+
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+    <li>
+      <span>14 Jul 2017 &raquo;</span> <a href="/computervision/2017/07/14/Computer-Vision-Note-10.html">Computer Vision Note 10</a>
+    </li>
+    
+    <li>
+      <span>12 Jul 2017 &raquo;</span> <a href="/computervision/2017/07/12/Computer-Vision-Note-9.html">Computer Vision Note 9</a>
+    </li>
+    
+    <li>
+      <span>08 Jul 2017 &raquo;</span> <a href="/jekyll/disqus/2017/07/08/Disqus-Setup.html">Disqus Setup Test</a>
+    </li>
+    
+  </ul>
+</div>
+
+
+
+
+      
+
+      <div class="footer">
+        <div class="disclaimer">
+  
+  <p>
+    The postings on this site are Fan's learning notes about CompSci and Physics, only for personal use.
+  </p>
+  
+
+  <p>
+    © Fan Zhang, 2016 &mdash; built with <a href="http://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/swanson/lagom">Lagom theme</a>
+  </p>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>

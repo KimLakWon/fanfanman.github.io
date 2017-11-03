@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fan Zhang - Computer Vision Note 2</title>
+  <meta name="author" content="Fan Zhang" />
+  <meta name="description" content="The blog of Fan Zhang" />
+  <link rel="canonical" href="http://localhost:4000/computervision/2017/05/22/Computer-Vision-Note-2.html" />
+
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="alternate" type="application/atom+xml" title="Fan Zhang" href="http://localhost:4000/atom.xml" />
+
+  <link rel="stylesheet" href="/assets/css/all.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="four columns sidebar">
+      <nav>
+  <h1>Hi.</h1>
+  <a href="/">
+    
+    <img src="/logo.png" id="logo" alt="Blog logo" height="100px" width="100px"/>
+    
+  </a>
+  <h2>I'm <a href="/">Fan Zhang</a>.</h2>
+  <div id="bio">
+    <p>Here should be something witty, but clearly I don't have one.</p>
+    <p>Some of my projects could be found <a href="/project.html">here</a>.</p>
+  </div>
+  <div id="social">
+    Follow me:
+<div id="stalker">
+  
+  <a target="_blank" title="fanfanman on Github" href="https://github.com/fanfanman">
+    <i class="fa fa-github-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a title="Fan Zhang on Facebook" href="https://facebook.com/profile.php?id=100005663117201">
+    <i class="fa fa-facebook-square"></i>
+  </a>
+  
+
+  
+
+  
+  <a target="_blank" title="Fan Zhang on LinkedIn" href="https://www.linkedin.com/in/fan-zhang-88381a119">
+    <i class="fa fa-linkedin-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+  <a target="_blank" title="Atom feed" id="atom" href="/atom.xml">
+    <i class="fa fa-rss-square"></i>
+  </a>
+  
+</div>
+
+  </div>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <p class="meta">
+  May 22, 2017 
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">Computer Vision Note 2</h1>
+
+<div id="post">
+  <h3 id="lesson-2a-l2-filtering">Lesson 2A-L2 Filtering</h3>
+<p>This lesson is about removing noise to recover real information. The method of averaging over nearby bins to get real info is called correlation filtering, there are also two types of averaging:</p>
+<ul>
+  <li>Moving average, which is to take uniform average of nearby bins as real info</li>
+  <li>Weighted moving average, which is to assign weights onto nearby bins and then take average. Also called cross correlation. A gaussian filter is usually being used.</li>
+  <li>Matlab gaussian filter function:
+‘'’matlab
+h = fspecial(‘gaussian’, hsize, sigma);
+surf(h)
+imagesc(h);
+outim = imfilter(im, h)
+‘’’</li>
+</ul>
+
+<h3 id="lesson-2a-l3-linearity-and-convolution">Lesson 2A-L3 Linearity and convolution</h3>
+<ul>
+  <li>Linearity: An operator H (or system) is linear if two properties hold (f1, f2 are functions, a is a constant): 1. Additivity: H(f1 + f2) = H(f1) + H(f2); 2. Multiplicative scaling (Homogeneity of degree 1): H(af1) = aH(f1)</li>
+  <li>But there’s a problem with correlation that, when you input a pulse function, the result after applying matrix multiplication would be mirror to the matrix function. So, we need to apply convolution.</li>
+  <li>Boundary issues: there are several options to deal with boundaries: original, circular, replicate, symmetric.</li>
+  <li>Sharpening filter: 2 times pulse filter - blurry filter</li>
+  <li>Median filter, non-linear but edge preserving, can be used to filter through sparse random noise (‘salt and pepper’ noise), can be called smoothing operator.</li>
+</ul>
+
+<h3 id="lesson-2a-l4-filters-as-templates">Lesson 2A-L4 Filters as templates</h3>
+<ul>
+  <li>Matching a piece of picture onto the entire pictures uses a method called ‘normalized correlation’, actually it’s all about calculating chi squared… Or finding a subsequence in a sequence requires further knowledge in algorithms.</li>
+  <li>This is especially useful in detecting some template in a complicated figure (term: template matching). Could be used in alphabet recognition, face recognition, these kinds of computer vision application areas.</li>
+</ul>
+
+<h3 id="lesson-2a-l5-edge-detection-gradients">Lesson 2A-L5 Edge detection: Gradients</h3>
+<ul>
+  <li>Edges are important in recogniting an object in an image</li>
+  <li>Origin of edges: surface normal discontinuity, depth discontinuity, surface color discontinuity, illumination discontinuity. Edge detection is important in coverting image to curves that matter.</li>
+  <li>Edge detection basic idea: looking for a neighborhood with strong signs of change.</li>
+  <li>Edge is a place of rapid change in the image intensity function. So finding edges is somehow related to finding local extremes in derivatives.</li>
+  <li>Basic idea: 1. define differential operators: when applied to the image, it returns some derivatives. 2. We apply these operators as masks/kernels that compute the image gradient function. 3. Threshold this gradient function to select the edges.</li>
+  <li>Gradient points in the direction of most rapid increase in the intensity, in computer science, we need to do discrete gradient. So, horizongtal gradient would become df/dx = [f(x+1, y) - f(x, y)]/1</li>
+  <li>discrete gradient operator to deal with images would look like <img src="https://fanfanman.github.io/assets/udacitycv/cvgradientoperator.png" alt="gradientoperator" /> and Sobel operator is like <img src="https://fanfanman.github.io/assets/udacitycv/cvsobeloperator.png" alt="sobeloperator" /></li>
+  <li>Some well-known gradient operators: Sobel, Prewitt, Roberts. Matlab filter function: filt = fspecial(‘sobel’), which applies sobel operator.</li>
+  <li>Keep in mind the difference between correlation and convolution in image processing.</li>
+  <li>But in real world, due to noises the gradient operator may fail somehow, so we may need to do smoothing first, or smoothing after gradient operator. (It’s a bit like in signal system, all about operators). Varying filter rather than filtering after filtering usually saves time and space.</li>
+</ul>
+
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+    <li>
+      <span>14 Jul 2017 &raquo;</span> <a href="/computervision/2017/07/14/Computer-Vision-Note-10.html">Computer Vision Note 10</a>
+    </li>
+    
+    <li>
+      <span>12 Jul 2017 &raquo;</span> <a href="/computervision/2017/07/12/Computer-Vision-Note-9.html">Computer Vision Note 9</a>
+    </li>
+    
+    <li>
+      <span>08 Jul 2017 &raquo;</span> <a href="/jekyll/disqus/2017/07/08/Disqus-Setup.html">Disqus Setup Test</a>
+    </li>
+    
+  </ul>
+</div>
+
+
+
+
+      
+
+      <div class="footer">
+        <div class="disclaimer">
+  
+  <p>
+    The postings on this site are Fan's learning notes about CompSci and Physics, only for personal use.
+  </p>
+  
+
+  <p>
+    © Fan Zhang, 2016 &mdash; built with <a href="http://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/swanson/lagom">Lagom theme</a>
+  </p>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>

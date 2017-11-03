@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fan Zhang - Computer Vision Note 3</title>
+  <meta name="author" content="Fan Zhang" />
+  <meta name="description" content="The blog of Fan Zhang" />
+  <link rel="canonical" href="http://localhost:4000/computervision/2017/05/25/Computer-Vision-Note-3.html" />
+
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="alternate" type="application/atom+xml" title="Fan Zhang" href="http://localhost:4000/atom.xml" />
+
+  <link rel="stylesheet" href="/assets/css/all.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="four columns sidebar">
+      <nav>
+  <h1>Hi.</h1>
+  <a href="/">
+    
+    <img src="/logo.png" id="logo" alt="Blog logo" height="100px" width="100px"/>
+    
+  </a>
+  <h2>I'm <a href="/">Fan Zhang</a>.</h2>
+  <div id="bio">
+    <p>Here should be something witty, but clearly I don't have one.</p>
+    <p>Some of my projects could be found <a href="/project.html">here</a>.</p>
+  </div>
+  <div id="social">
+    Follow me:
+<div id="stalker">
+  
+  <a target="_blank" title="fanfanman on Github" href="https://github.com/fanfanman">
+    <i class="fa fa-github-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a title="Fan Zhang on Facebook" href="https://facebook.com/profile.php?id=100005663117201">
+    <i class="fa fa-facebook-square"></i>
+  </a>
+  
+
+  
+
+  
+  <a target="_blank" title="Fan Zhang on LinkedIn" href="https://www.linkedin.com/in/fan-zhang-88381a119">
+    <i class="fa fa-linkedin-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+  <a target="_blank" title="Atom feed" id="atom" href="/atom.xml">
+    <i class="fa fa-rss-square"></i>
+  </a>
+  
+</div>
+
+  </div>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <p class="meta">
+  May 25, 2017 
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">Computer Vision Note 3</h1>
+
+<div id="post">
+  <h3 id="lesson-2a-l6-edge-detection-2d-operators">Lesson 2A-L6 Edge detection: 2D operators</h3>
+<ul>
+  <li>For a derivative operator, larger sigma of the operator will generate sharper edges and larger-scale edges</li>
+  <li>Primary edge detection steps: (how we convert gradient to edges) 1. smoothing derivatives to suppress noise and compute gradient; 2. threshold to find regions of significant gradient; 3. thin to get localized edge pixels; 4. link or connect edge pixels.</li>
+  <li>Canny edge operator: 1. filter image with derivative operator; 2. find magnitude and orientation; 3. non-maximum suppression: thin multi-pixel wide ‘ridges’ down to single pixel width; 4. linking and thresholding: define two thresholds: low and high, use the high threshold to start edge curves and the low threshold to continue them.</li>
+  <li>Non-maximum suppresion: because thresholding usually cut out the gaussian curves above threshold, generating a thick edge. we need to check if pixel is local maximum along gradient direciton. Problem with this: pixels along edge didn’t survive the thresholding.</li>
+  <li>Canny threshold hysteresis: Apply a high threshold (during thresholing step) to detect strong edge pixels, link thoese strong edge pixels to form strong edges. Then apply a low threshold to find weak but plausible edge pixels and extend the strong edges to follow weak edge pixels.</li>
+  <li>Useful code:
+    <div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">img</span> <span class="o">=</span> <span class="nb">imread</span><span class="p">(</span><span class="s1">'imagename.png'</span><span class="p">);</span>
+<span class="nb">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">);</span>
+<span class="n">imggray</span> <span class="o">=</span> <span class="nb">rgb2gray</span><span class="p">(</span><span class="n">img</span><span class="p">);</span>
+<span class="n">imgedge</span> <span class="o">=</span> <span class="n">edge</span><span class="p">(</span><span class="n">imggray</span><span class="p">,</span> <span class="s1">'canny'</span><span class="p">);</span> <span class="c1">% canny edge operator</span>
+<span class="nb">imshow</span><span class="p">(</span><span class="n">img1gray</span> <span class="o">&amp;</span> <span class="n">img2gray</span><span class="p">);</span> <span class="c1">% to view common pixels</span>
+<span class="nb">doc</span> <span class="n">edge</span><span class="p">;</span> <span class="c1">% for help doc</span>
+</code></pre></div>    </div>
+  </li>
+  <li>single 2d edge detection filter: laplacian operator (1d: derivative of gaussian (smoothing operator))</li>
+</ul>
+
+<h3 id="lesson-2b-l1-hough-transform-lines">Lesson 2B-L1 Hough transform: Lines</h3>
+<ul>
+  <li>Parametric Model: A parametric model can represent a class of instances where each is defined by a value of the parameters, such as lines, or circles, or even a parameterized template.</li>
+  <li>Example of parametric model fitting: line fitting.</li>
+  <li>Difficulty of line fitting: Extra edge points (clutter), multiple models; Only some parts of each line detected, and some parts are missing, noise in measured edge points. So it’s hard to convert edges to lines</li>
+  <li>Solution: Voting - Voting is a general technique where we let the features vote for all models that are compatible on it. 1. Cycle through features (edge points), each casting votes for model parameters; 2. Look for model parameters that receive a lot of votes.</li>
+  <li>Hough transform: a voting techinique that can be used to fit lines. The main idea is: 1. each edge point votes for compatible lines; 2. look for lines that get many votes.</li>
+  <li>The key to Hough transform is hough space. For example, line representation is y = mx + b, and we put m and b into Hough (parameter) space which is two dimensional plot of (m, b). Then a line in the image corresponds to a point in Hough space. And a point in image space correspondds to a line in Hough space. Then we loop through all points and find the grid in Hough space who has most intersections of lines.</li>
+  <li>In order to avoid vertical lines which are difficult to represent, we use polar representation of lines. In solar representation, a point in image space is now a sinusoid segment in Hough space, xcost - ysint = d.</li>
+  <li>A Hough accumulator array is used to keep the votes.</li>
+  <li>Basic Hough transform algorithm: 1. Intitialize H[d, theta] = 0; 2. For each edge point in E(x, y) in the image, for theta = 0 to 180: d = xcostheta - ysintheta, H[d, theta] += 1 (which gives you a graph of sinusoids); 3. find the values of (d, theta) where H[d, theta] is maximum; 4. the detected line in the image is given by d = xcostheta - ysintheta.</li>
+  <li>Algorithm analysis: space complexity: k^n (n dimensions, k bins each). time complexity: constant times edge points.</li>
+  <li>Useful code:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[assum theta rho] = hough(edges); % hough function
+figure, imagesc(accum, 'XData', theta, 'YData', rho), title('Hough accumulator');
+peaks = houghpeaks(accum, 100);
+hold on; plot(theta(peaks(:, 2)), rho(peaks(:, 1)), 'rs'); hold off;
+linesegs = houghlines(edges, theta, rho, peaks);
+peaks = houghpeaks(accum, 100, 'Threshold', ceil(0.6*max(accum(:))), 'NHoodSize', [5 5]); % more precise lines
+</code></pre></div>    </div>
+  </li>
+  <li>Extensions - using the gradient. In the algorithm above, instead of looping through all possible thetas, we set theta = gradient at (x, y), which will reduce the time hugely.</li>
+  <li>Extension 2: give more votes for stronger edges</li>
+  <li>Extension 3: change the smapling of (d, theta) to give more/less resolution</li>
+</ul>
+
+<h3 id="lesson-2b-l2-hough-transform-circles">Lesson 2B-L2 Hough transform: Circles</h3>
+<ul>
+  <li>For a fixed radius r, unknown gradient direction: any point on the circle with function (x-a)^2 + (y-b)^2 = r^2 could be converted to a circle with radius r locating at xi and yi in Hough space (a, b).</li>
+  <li>For unknown radius r, no gradient: a point on circle in image space can be converted to a cone in Hough space (r, a, b).</li>
+  <li>For unknown radius, with gradient: gradient points perpendicular to radius, a point on circle in image space can be converted to a line in Hough space (r, a, b).</li>
+  <li>Voting pratical tips: minimize irrelevant tokens first; choose a good grid</li>
+  <li>Pros: All points are processed independently, so can cope with occlusion; some robustness to noise; can detect multiple instantces of a model in a single image.</li>
+  <li>Cons: Complexity of search time increases exponentially with the number of model parameters; quantization: hard to pick a good grid size.</li>
+</ul>
+
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+    <li>
+      <span>14 Jul 2017 &raquo;</span> <a href="/computervision/2017/07/14/Computer-Vision-Note-10.html">Computer Vision Note 10</a>
+    </li>
+    
+    <li>
+      <span>12 Jul 2017 &raquo;</span> <a href="/computervision/2017/07/12/Computer-Vision-Note-9.html">Computer Vision Note 9</a>
+    </li>
+    
+    <li>
+      <span>08 Jul 2017 &raquo;</span> <a href="/jekyll/disqus/2017/07/08/Disqus-Setup.html">Disqus Setup Test</a>
+    </li>
+    
+  </ul>
+</div>
+
+
+
+
+      
+
+      <div class="footer">
+        <div class="disclaimer">
+  
+  <p>
+    The postings on this site are Fan's learning notes about CompSci and Physics, only for personal use.
+  </p>
+  
+
+  <p>
+    © Fan Zhang, 2016 &mdash; built with <a href="http://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/swanson/lagom">Lagom theme</a>
+  </p>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>

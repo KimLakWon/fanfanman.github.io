@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fan Zhang - JavaScript DOM 编程艺术</title>
+  <meta name="author" content="Fan Zhang" />
+  <meta name="description" content="The blog of Fan Zhang" />
+  <link rel="canonical" href="http://localhost:4000/jekyll/update/2015/12/29/javascript-dom-programming-skill.html" />
+
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="alternate" type="application/atom+xml" title="Fan Zhang" href="http://localhost:4000/atom.xml" />
+
+  <link rel="stylesheet" href="/assets/css/all.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="four columns sidebar">
+      <nav>
+  <h1>Hi.</h1>
+  <a href="/">
+    
+    <img src="/logo.png" id="logo" alt="Blog logo" height="100px" width="100px"/>
+    
+  </a>
+  <h2>I'm <a href="/">Fan Zhang</a>.</h2>
+  <div id="bio">
+    <p>Here should be something witty, but clearly I don't have one.</p>
+    <p>Some of my projects could be found <a href="/project.html">here</a>.</p>
+  </div>
+  <div id="social">
+    Follow me:
+<div id="stalker">
+  
+  <a target="_blank" title="fanfanman on Github" href="https://github.com/fanfanman">
+    <i class="fa fa-github-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a title="Fan Zhang on Facebook" href="https://facebook.com/profile.php?id=100005663117201">
+    <i class="fa fa-facebook-square"></i>
+  </a>
+  
+
+  
+
+  
+  <a target="_blank" title="Fan Zhang on LinkedIn" href="https://www.linkedin.com/in/fan-zhang-88381a119">
+    <i class="fa fa-linkedin-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+  <a target="_blank" title="Atom feed" id="atom" href="/atom.xml">
+    <i class="fa fa-rss-square"></i>
+  </a>
+  
+</div>
+
+  </div>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <p class="meta">
+  December 29, 2015 
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">JavaScript DOM 编程艺术</h1>
+
+<div id="post">
+  <p><a href="http://www.amazon.com/DOM-Scripting-Design-JavaScript-Document/dp/1430233893">DOM Scripting</a>: Web Design with JavaScript and the Document Object Model 读书笔记</p>
+
+<hr />
+
+<h3 id="chapter-1-简史">Chapter 1 简史</h3>
+<ul>
+  <li>JavaScript是一种脚本语言，通常只能通过浏览器去完成某种操作而不是像普通意义上的程序那样可以独立运行。</li>
+  <li>
+    <p>DOM: Document Object Model</p>
+
+    <blockquote>
+      <p>W3C对DOM的定义是：“一个与系统平台和编程语言无关的接口，程序和脚本可以通过这个接口动态的对文档的内容、结构和样式进行访问和修改。”</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="chapter-2-javascript-语法">Chapter 2 JavaScript 语法</h3>
+<ul>
+  <li>程序设计语言分为解释型和编译型两大类：
+    <ul>
+      <li>Java和C++等语言需要一个编译器(Compiler)来将代码翻译为直接在计算机上执行的二进制可执行文件的程序。</li>
+      <li>对于JavaScript语言，浏览器将负责完成有关的解释与执行工作。浏览器中的js解释器将直接读入源代码并加以执行。</li>
+    </ul>
+  </li>
+  <li>JS语法：
+    <ul>
+      <li>Declaration: <code class="highlighter-rouge">var A="happy", B="3"</code>, 区分大小写。</li>
+      <li>不需要进行类型声明(int, string…)，是弱类型(weakly typed)语言。</li>
+      <li>声明数组：<code class="highlighter-rouge">var beatles = Array(); </code>或者<code class="highlighter-rouge">var beatles = ["John", "Paul", "George", "Ringo"];</code>。</li>
+      <li>javascript中的map是关联数组(associative array)</li>
+      <li>定义函数：<code class="highlighter-rouge">function name(argument) {statements;}</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="chapter-3-dom">Chapter 3 DOM</h3>
+<ul>
+  <li>四种方法：
+    <ul>
+      <li><code class="highlighter-rouge">document.getElementById()</code>方法，返回一个对象。</li>
+      <li><code class="highlighter-rouge">element.getElementsByTagName(tag)</code>方法，返回一个对象数组。</li>
+      <li><code class="highlighter-rouge">object.getAttribute(attribute)</code>方法，返回对象的一个属性。</li>
+      <li><code class="highlighter-rouge">object.setAttribute(attribute, value)</code>方法，修改属性节点的值。</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="chapter-4-案例研究javascript图片库">Chapter 4 案例研究：JavaScript图片库</h3>
+
+<h3 id="chapter-5-javascript编程原则">Chapter 5 JavaScript编程原则</h3>
+<ul>
+  <li>脚本编程中需要注意一下几点：
+    <ul>
+      <li>预留退路：防止浏览器不兼容情况。</li>
+      <li>分离JavaScript：防止不兼容。</li>
+      <li>向后兼容性：不同的浏览器对js的支持程度不同，因此需要在脚本里对浏览器对js的支持程度进行查询。使用<code class="highlighter-rouge">if (!method) {use another method; }</code>。</li>
+    </ul>
+  </li>
+  <li>一言以蔽之：就是要注意兼容性。</li>
+</ul>
+
+<h3 id="chapter-6-案例研究javascript图片库改进版">Chapter 6 案例研究：JavaScript图片库改进版</h3>
+
+<h3 id="chapter-7-动态创建html内容">Chapter 7 动态创建HTML内容</h3>
+<ol>
+  <li>Normal method to create HTML contetnt: <code class="highlighter-rouge">document.write()</code> and <code class="highlighter-rouge">innerHTML</code>.
+    <ul>
+      <li>Both of them aim at changing existed elements.</li>
+      <li><code class="highlighter-rouge">document.write()</code> method: write element into HTML. Cons: have to call function in HTML, JS isn’t separated from HTML.</li>
+      <li><code class="highlighter-rouge">innerHTML</code>: read and change the HTML content of a certain element. Cons: not DOM standard. Which means, the inserted string is only read into HTML webpage as a string, not a DOM tree structure. Pros: can insert a large amount of code immediately.</li>
+    </ul>
+  </li>
+  <li>Advanced method: <code class="highlighter-rouge">createElement()</code>, <code class="highlighter-rouge">createTextNode()</code>, <code class="highlighter-rouge">appendChild()</code> and <code class="highlighter-rouge">insertBefore()</code>. Can create elements, better method. Working principle: HTML builds the structure of website, and JavaScript functions modify little details of HTML.</li>
+</ol>
+
+<h3 id="chapter-8-content-expansion">Chapter 8 Content Expansion</h3>
+<ul>
+  <li>Two main principles: progressive enhancement, reserve backtrail.</li>
+</ul>
+
+<h3 id="chapter-9-css-dom">Chapter 9 CSS-DOM</h3>
+<ul>
+  <li>The presentation layers of websites are built with css.</li>
+  <li>The behavior layers of websites answer “how to react to events” are built by HTML and JavaScript.</li>
+</ul>
+
+<h3 id="chapter-10-use-javascript-to-make-animation">Chapter 10 Use JavaScript to make animation</h3>
+<ul>
+  <li>Time: JS can use <code class="highlighter-rouge">var variable = setTimeout("function", interval)</code> to execute function with a certain time interval.</li>
+</ul>
+
+<h3 id="chapter-11-javascript-design-example">Chapter 11 JavaScript Design Example</h3>
+
+<h3 id="chapter-12-dom-scripting-prospect">Chapter 12 DOM Scripting Prospect</h3>
+<ul>
+  <li>Ajax: asynchronous tech.</li>
+  <li>Web Application Development: put desktop programs online.
+    <ul>
+      <li>Pros: modification to online applications can apply to every user immediately, no need to download and update.</li>
+      <li>Cons: compared to desktop operating system, browser doesn’t have enough functions. GUI + interactive function aren’t complete.</li>
+    </ul>
+  </li>
+  <li>As the DOM tree is similar to OS file tree, why not put applications and files online, and get rid of the redundant physical operating system.</li>
+  <li>
+    <p>To quote from Tim Berners Lee, inventor of World Wide Web:</p>
+
+    <blockquote>
+      <p>Web users ultimately want to get at data quickly and easily. They don’t care as much about attractive sites and pretty design.</p>
+    </blockquote>
+
+    <blockquote>
+      <p>Intellectual property is an important legal and cultural issue. Society as a whole has complex issues to face here: private ownership vs. open source, and so on.</p>
+    </blockquote>
+  </li>
+  <li>The power of internet relies on its inclusive property. The main feature is that it’s accessible to everyone.</li>
+</ul>
+
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+    <li>
+      <span>14 Jul 2017 &raquo;</span> <a href="/computervision/2017/07/14/Computer-Vision-Note-10.html">Computer Vision Note 10</a>
+    </li>
+    
+    <li>
+      <span>12 Jul 2017 &raquo;</span> <a href="/computervision/2017/07/12/Computer-Vision-Note-9.html">Computer Vision Note 9</a>
+    </li>
+    
+    <li>
+      <span>08 Jul 2017 &raquo;</span> <a href="/jekyll/disqus/2017/07/08/Disqus-Setup.html">Disqus Setup Test</a>
+    </li>
+    
+  </ul>
+</div>
+
+
+
+
+      
+  <br>
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+    this.page.url = "https://fanfanman.github.io";  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+              
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://fanfanman.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+      <div class="footer">
+        <div class="disclaimer">
+  
+  <p>
+    The postings on this site are Fan's learning notes about CompSci and Physics, only for personal use.
+  </p>
+  
+
+  <p>
+    © Fan Zhang, 2016 &mdash; built with <a href="http://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/swanson/lagom">Lagom theme</a>
+  </p>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fan Zhang - Computer Vision Note 6</title>
+  <meta name="author" content="Fan Zhang" />
+  <meta name="description" content="The blog of Fan Zhang" />
+  <link rel="canonical" href="http://localhost:4000/computervision/2017/07/01/Computer-Vision-Note-6.html" />
+
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="alternate" type="application/atom+xml" title="Fan Zhang" href="http://localhost:4000/atom.xml" />
+
+  <link rel="stylesheet" href="/assets/css/all.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="four columns sidebar">
+      <nav>
+  <h1>Hi.</h1>
+  <a href="/">
+    
+    <img src="/logo.png" id="logo" alt="Blog logo" height="100px" width="100px"/>
+    
+  </a>
+  <h2>I'm <a href="/">Fan Zhang</a>.</h2>
+  <div id="bio">
+    <p>Here should be something witty, but clearly I don't have one.</p>
+    <p>Some of my projects could be found <a href="/project.html">here</a>.</p>
+  </div>
+  <div id="social">
+    Follow me:
+<div id="stalker">
+  
+  <a target="_blank" title="fanfanman on Github" href="https://github.com/fanfanman">
+    <i class="fa fa-github-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a title="Fan Zhang on Facebook" href="https://facebook.com/profile.php?id=100005663117201">
+    <i class="fa fa-facebook-square"></i>
+  </a>
+  
+
+  
+
+  
+  <a target="_blank" title="Fan Zhang on LinkedIn" href="https://www.linkedin.com/in/fan-zhang-88381a119">
+    <i class="fa fa-linkedin-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+  <a target="_blank" title="Atom feed" id="atom" href="/atom.xml">
+    <i class="fa fa-rss-square"></i>
+  </a>
+  
+</div>
+
+  </div>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <p class="meta">
+  July 01, 2017 
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">Computer Vision Note 6</h1>
+
+<div id="post">
+  <h3 id="lesson-3a-l1-cameras-and-images">Lesson 3A-L1 Cameras and Images</h3>
+<ul>
+  <li>Up till now, an image is a function, a 2D pattern of intensity values.</li>
+  <li>From this lesson, we think of images as 2D projections of 3D points.</li>
+  <li>Pinhole camera: we make an aperture on a barrier, so that the projection of object can form a complete graph on the film.</li>
+  <li>Instead, we use a lens to make projection in real world. Thin lense theorem: 1/z1 + 1/z2 = 1/f (f = focus)</li>
+  <li>Varying focus can change the depth of field to be shown on screen.</li>
+  <li>If one needs to blur remote scenes, he needs to enlarge aperture, such that scenes close the image will get blurred, as shown in the following figure <img src="https://fanfanman.github.io/assets/udacitycv/cvapertureeffect.png" alt="aperture" /> If there’s a scene close to the image, a larger aperture will form a larger image on the screen, which seems blurer. 即光圈大小影响了远景的模糊程度，光圈越大远景越模糊，成像越集中于某一物体。</li>
+  <li>Focal length affects how far away can we shoot, which is the field of view, 即焦距大小影响了，我们能拍到的景色的远近，焦距越大，能拍到越远的景物。</li>
+  <li>Funny phrase: reality can be a problem, which is a nicer way of saying life sucks.</li>
+  <li>In reality, lenses are not perfect, they produce geometric distortion such as pin cushion distortion and barrel distortion.</li>
+  <li>In reality, there’s also a chromatic abberation resulting from diffraction.</li>
+  <li>In reality, there’s also a vignetting problem, when some of light leaks between two lenses, resulting in dark areas in images.</li>
+</ul>
+
+<h3 id="lesson-3a-l2-perspective-imaging">Lesson 3A-L2 Perspective Imaging</h3>
+<ul>
+  <li>Set up camera coordinate system: x pointing right, y pointing upwards, z pointing into the camera.</li>
+  <li>Projection is used to get maths down in finding image position.</li>
+  <li>But division by z is non-linear, we need to use homogeneous coordinates, by setting (x, y) to (x, y, 1) and (x, y, z) to (x, y, z, 1).</li>
+  <li>And, projection became a matrix multiplication in homogeneous coordinates!</li>
+  <li>Parallel lines converge in math in some point called vanishing point.</li>
+  <li>Sets of parallel lines on the same plane lead to collinear vanishing points. The line is called the horizon. - two point perspective (两点透视). Which means, by looking for two vanishing points converged from parallel lines, we can figure out the horizon in an image!</li>
+  <li>special case of perspective projection: orthographic projection (parallel projection), which is to smash scenes onto the screen.</li>
+  <li>Since more maths are coming, fasten your seatbelts.</li>
+  <li>Anamorphic images are amazing illusions designed using the pinciples of perspective projection.</li>
+</ul>
+
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+    <li>
+      <span>14 Jul 2017 &raquo;</span> <a href="/computervision/2017/07/14/Computer-Vision-Note-10.html">Computer Vision Note 10</a>
+    </li>
+    
+    <li>
+      <span>12 Jul 2017 &raquo;</span> <a href="/computervision/2017/07/12/Computer-Vision-Note-9.html">Computer Vision Note 9</a>
+    </li>
+    
+    <li>
+      <span>08 Jul 2017 &raquo;</span> <a href="/jekyll/disqus/2017/07/08/Disqus-Setup.html">Disqus Setup Test</a>
+    </li>
+    
+  </ul>
+</div>
+
+
+
+
+      
+
+      <div class="footer">
+        <div class="disclaimer">
+  
+  <p>
+    The postings on this site are Fan's learning notes about CompSci and Physics, only for personal use.
+  </p>
+  
+
+  <p>
+    © Fan Zhang, 2016 &mdash; built with <a href="http://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/swanson/lagom">Lagom theme</a>
+  </p>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>

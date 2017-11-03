@@ -1,0 +1,1004 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>The blog of Fan Zhang</title>
+ <link href="http://localhost:4000/atom.xml" rel="self"/>
+ <link href="http://localhost:4000"/>
+ <updated>2017-11-03T01:18:19-04:00</updated>
+ <id>http://localhost:4000</id>
+ <author>
+   <name>Fan Zhang</name>
+   <email>aprilzhang1994@gmail.com</email>
+ </author>
+
+ 
+ <entry>
+   <title>Computer Vision Note 10</title>
+   <link href="http://localhost:4000/computervision/2017/07/14/Computer-Vision-Note-10.html"/>
+   <updated>2017-07-14T20:45:00-04:00</updated>
+   <id>http://localhost:4000/computervision/2017/07/14/Computer-Vision-Note-10</id>
+   <content type="html">&lt;h3 id=&quot;lesson-4a-l1-introduction-to-features&quot;&gt;Lesson 4A-L1 Introduction to “features”&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Suppose I have two images related by some transformation, or have two images of the same object in different positions, How to find the transformation of iamge 1 that would align with image 2? We need to find correspondences, Local Features.&lt;/li&gt;
+  &lt;li&gt;Goal: find points in an image that can be found in other images; found precisely - well localized; found reliably - well matched.&lt;/li&gt;
+  &lt;li&gt;Why? Want to compute a fundamental matrix to recover geometry; allow computation of how camera moved -&amp;gt; depth -&amp;gt; moving objects. This is called point matching problem.&lt;/li&gt;
+  &lt;li&gt;Matching process: detect features in both images; match feature - find corresponding pair; use these pairs to align images.
+    &lt;ul&gt;
+      &lt;li&gt;Problem 1: how to detect the same point independently in both? We need a repeatable detector.&lt;/li&gt;
+      &lt;li&gt;Problem 2: For each point correctly recognize the corresponding one? We need a reliable and distinctive descriptor.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Characteristics of good features: repeatability/precision, Saliency/Matchability/Uniquenss, Compactness/Efficiency, Locality/SmallArea&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-4a-l2-finding-corners&quot;&gt;Lesson 4A-L2 Finding Corners&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Basic idea: we need a change in gradience in more than one direction.&lt;/li&gt;
+  &lt;li&gt;Harris corners: approximation model and error model: calculate the diff between intensity at a point and intensity at a slightly shifted point, which is like calculating derivative of gradience.&lt;/li&gt;
+  &lt;li&gt;There’s a lot of math and matrix operations, check wikipedia for more info.&lt;/li&gt;
+  &lt;li&gt;Harris detector algorithm:
+    &lt;ul&gt;
+      &lt;li&gt;Compute Gaussian derivatives at each pixel&lt;/li&gt;
+      &lt;li&gt;Compute second moment matrix M in a Gaussian window around each pixel&lt;/li&gt;
+      &lt;li&gt;Compute corner response function R&lt;/li&gt;
+      &lt;li&gt;Threshold R&lt;/li&gt;
+      &lt;li&gt;Find local maxima of response function (nonmaximum suppression)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Other corners: Shi-Tomasi 94&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-4a-l3-scale-invariance&quot;&gt;Lesson 4A-L3 Scale Invariance&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Some properties about harris detector: mostly invariant to additive and multiplicative intensity cahnges, but may have threshold issue for multiplicative; invariant to image scale&lt;/li&gt;
+  &lt;li&gt;How to scale pictures to the same size to reach scale invariance?&lt;/li&gt;
+  &lt;li&gt;One method: at a point, compute the scale invariant function over different size neighborhoods&lt;/li&gt;
+  &lt;li&gt;Solution: design a function on the region, which is not affected by the size but will be the same for “corresponding regions”, even if they are at different sizes/scales. For example, use average intensity as a scale&lt;/li&gt;
+  &lt;li&gt;Key point localization: general indea: find robust extremum (max of min) both in space and in scale.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Computer Vision Note 9</title>
+   <link href="http://localhost:4000/computervision/2017/07/12/Computer-Vision-Note-9.html"/>
+   <updated>2017-07-12T20:45:00-04:00</updated>
+   <id>http://localhost:4000/computervision/2017/07/12/Computer-Vision-Note-9</id>
+   <content type="html">&lt;h3 id=&quot;lesson-3d-l1-image-to-image-projection&quot;&gt;Lesson 3D-L1 Image to Image Projection&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Calibration is about projecting the 3D world to a 2D image, for the next few lessons, we are gonna learn about how to map one image to another.&lt;/li&gt;
+  &lt;li&gt;Several operations: translations, similarity, euclidean, affine. All about matrix multiplications.&lt;/li&gt;
+  &lt;li&gt;Projective transformations: for 2D images it’s a 3*3 matrix applied to homogeneous matrices (x, y, 1). According to different types of transformations, we need different pairs of points to map. For example, how many points do we need to do homography? Four to map each edge of rectangle to each edge on the other rectangle.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-3d-l2-homographies-and-mozaics&quot;&gt;Lesson 3D-L2 Homographies and Mozaics&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Usually there are eight degrees of freedom in homography transformations&lt;/li&gt;
+  &lt;li&gt;The geometric meaning of using homogeneous matrix is because: each point (x, y) on the plane (at z=1) is represented by a  ray (sx, sy, s). All points on the ray are equivalent. Which means, points on the image plane (x, y, 1) is equivalent to a ray (sx, sy, s) in space coming from the center of projection (0, 0, 0) and intersecting the image plane (z=1).&lt;/li&gt;
+  &lt;li&gt;Basic question: how to relate two images from the same camera center? Answer: Cast a ray through each pixel in PP1, then draw the pixel where that ray intersects PP2. So the only thing that matters is to know where the camera points.&lt;/li&gt;
+  &lt;li&gt;Application: panorama. Procedure: Take a sequence of images from the same position; Compute transformation between second image and first; Transform the second image to overlap with the first; Blend the two together to create a mosaic (panorama).&lt;/li&gt;
+  &lt;li&gt;The procedure of transforming the secodn image to overlap with the first is homography. In order to solve the homography operator, we need 4 pairs of points and use SVD method as discussed in section 3C-L3.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-3d-l3-projective-geometry&quot;&gt;Lesson 3D-L3 Projective Geometry&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;The initiative to use homogeneous coordinates is that: each point (x, y) on the plane is represented by a ray (sx, sy, s).&lt;/li&gt;
+  &lt;li&gt;In homogeneous coordinates, 2D lines ax+by+c=0 can be thought as dot product of two matrices (a,b,c) and (x,y,1) where l = (a, b, c) is a normal line.&lt;/li&gt;
+  &lt;li&gt;Projective line: is a plane of rays through origin defined by the normal l = (a, b, c)&lt;/li&gt;
+  &lt;li&gt;What is the line l spanned by rays p1 and p2? It should be perpendicular to l the normal line l = p1 cross p2.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-3d-l4-essential-matrix&quot;&gt;Lesson 3D-L4 Essential Matrix&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Problem: Given two views of a scene, what is the relationship between the location of a scene point in one image and its location in the other? We need to find out the matches (restraints)&lt;/li&gt;
+  &lt;li&gt;Find pairs of points that correspond to same scene points: we need Epipolar Constraint, it reduces correspondence problem to 1D search along conjugate epipolar lines&lt;/li&gt;
+  &lt;li&gt;terms:
+    &lt;ul&gt;
+      &lt;li&gt;baseline: line joining the camera centers&lt;/li&gt;
+      &lt;li&gt;epipolar plane: plane containing baseline and world point&lt;/li&gt;
+      &lt;li&gt;epipolar line: intersection of epipolar plane with the image plane - come in pairs&lt;/li&gt;
+      &lt;li&gt;epipole: point of intersection of baseline with image plane&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The point is to transfer geometry into algebra.&lt;/li&gt;
+  &lt;li&gt;Aside 1: vector cross product takes two vectors and returns a third vector that’s perpendicular to both inputs&lt;/li&gt;
+  &lt;li&gt;Aside 2: Cross product can be redefined to a matrix operation.&lt;/li&gt;
+  &lt;li&gt;In algebra, essential matrix relates point x in one image to correpondent point x’ in another image, x’Ex = 0. Where epipolar line l = EX. Essential matrix E = [Tx]R, where T is transformation between two cameras&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-3d-l5-fundamental-matrix&quot;&gt;Lesson 3D-L5 Fundamental Matrix&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Main idea of weak calibration: estimate epipolar geometry from a (redundant) set of point correspondences between two uncalibrated cameras.&lt;/li&gt;
+  &lt;li&gt;For uncalibrated cameras, we use fundamental matrix instead of essential matrix&lt;/li&gt;
+  &lt;li&gt;Fundamental matrix is 3*3, singular, maps from a point to a line.&lt;/li&gt;
+  &lt;li&gt;Fundamental matrix relates pixel coordinates in the two views, and is more general form than essential matrix, bc we remove the need to know intrinsic parameters&lt;/li&gt;
+  &lt;li&gt;So if we estimate fundamental matrix from correspondences in pixel coordinates, we can reconstruct epipolar geometry without intrinsic or extrinsic parameters.&lt;/li&gt;
+  &lt;li&gt;Each point correspondence generates one constraint on F.&lt;/li&gt;
+  &lt;li&gt;There’s a very unstable algorithm called Eight-point algorithm to solve F.&lt;/li&gt;
+  &lt;li&gt;Summary:
+    &lt;ul&gt;
+      &lt;li&gt;For 2-views, there is a geometric relationship that defines the relation between rays in one view to rays in the other - epipolar geometry&lt;/li&gt;
+      &lt;li&gt;These relationships can be captured algebraically as well: calibrated - essential matrix; uncalibrated - fundamental matrix&lt;/li&gt;
+      &lt;li&gt;This relation can be estimated from point correspondences.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Disqus Setup Test</title>
+   <link href="http://localhost:4000/jekyll/disqus/2017/07/08/Disqus-Setup.html"/>
+   <updated>2017-07-08T16:58:00-04:00</updated>
+   <id>http://localhost:4000/jekyll/disqus/2017/07/08/Disqus-Setup</id>
+   <content type="html">&lt;ul&gt;
+  &lt;li&gt;Since Disqus is a popular feature to Jekyll blogs, I tried to add it to my personal site in this post.&lt;/li&gt;
+  &lt;li&gt;The setup instructions could be found on Disqus website.&lt;/li&gt;
+  &lt;li&gt;And hooray! Here goes the Disqus features! &lt;img src=&quot;https://fanfanman.github.io/assets/udacitycv/hooray.jpg&quot; alt=&quot;hoorayimage&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Computer Vision Note 8</title>
+   <link href="http://localhost:4000/computervision/2017/07/07/Computer-Vision-Note-8.html"/>
+   <updated>2017-07-08T00:45:00-04:00</updated>
+   <id>http://localhost:4000/computervision/2017/07/07/Computer-Vision-Note-8</id>
+   <content type="html">&lt;h3 id=&quot;lesson-3c-l1-extrinsic-camera-parameters&quot;&gt;Lesson 3C-L1 Extrinsic Camera Parameters&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;This lesson is about how to project coordinate system to the camera.&lt;/li&gt;
+  &lt;li&gt;geometric camera calibration: if we want to use the camera to tell us things about the world, we need the relationship between coordinates in the world and coordinates in the image.&lt;/li&gt;
+  &lt;li&gt;geometric camera calibration is composed of 2 transformations: extrinsic parameters, and intrinsic parameters&lt;/li&gt;
+  &lt;li&gt;extrinsic parameters: from some (arbitrary) world coordinate system to the camera’s 3D coordinate system&lt;/li&gt;
+  &lt;li&gt;intrinsic parameters: from the 3D coordinates in the camera frame to the 2D image plane via projection&lt;/li&gt;
+  &lt;li&gt;In brief, geometric camera calibration is about coordinate transformation, simple.&lt;/li&gt;
+  &lt;li&gt;In space coordinate transformations, there are transform operators, rotation operators and etc.&lt;/li&gt;
+  &lt;li&gt;Just found a good way to express rotation coordinates, this is the term used in aero engineering: heading, pitch and roll, these are the three parameters in spherical coordinates.&lt;/li&gt;
+  &lt;li&gt;All about transformation, translation and rotation.&lt;/li&gt;
+  &lt;li&gt;Extrinsic parameter matrix transfers a matrix from world coordinates to camera coordinates. There are 6 degrees of freedom. 即，通过矩阵变换将自然坐标系内的物体转变到照相机坐标系的坐标矩阵。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-3c-l2-intrinsic-camera-parameters&quot;&gt;Lesson 3C-L2 Intrinsic Camera Parameters&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;即，将照相机坐标系内的三维图像投射到镜头上&lt;/li&gt;
+  &lt;li&gt;The trick is also about expressing the intrinsic transformation oeprator in matrix. Some parameters to be considered: camera focal length, pixel x size, pixel y size, two offsets in xy directions, and skews of coordinate system.&lt;/li&gt;
+  &lt;li&gt;In conclusion, a camera operator M is described by several parameters: translation T of the optical center fromt he origin of world coordinates; rotation R of the camera system; focal lenght and aspect (f, a), principle point (x’, y’) and skew (s)&lt;/li&gt;
+  &lt;li&gt;Projection equation is the cumulative effect of all parameters: M = intrinsic * projection * rotation * translation, 11 degrees of freedom in total.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-3c-l3-calibrating-cameras&quot;&gt;Lesson 3C-L3 Calibrating Cameras&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Direct linear calibration, point on screen (u, v, 1) = operator M (3*4 matrix) * real world coordinates (X, Y, Z, 1)&lt;/li&gt;
+  &lt;li&gt;Trying hard to update every day&lt;/li&gt;
+  &lt;li&gt;It seems that I have to stop here, because I didn’t get it. The geometric metrix transform is complicated.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Computer Vision Note 7</title>
+   <link href="http://localhost:4000/computervision/2017/07/02/Computer-Vision-Note-7.html"/>
+   <updated>2017-07-02T18:37:00-04:00</updated>
+   <id>http://localhost:4000/computervision/2017/07/02/Computer-Vision-Note-7</id>
+   <content type="html">&lt;h3 id=&quot;lesson-3b-l1-stereo-geometry&quot;&gt;Lesson 3B-L1 Stereo Geometry&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;We need multiple views to determine real 3D depth of an object&lt;/li&gt;
+  &lt;li&gt;How human eyes see in 3D? By seeing perspective, shading, texture, focus/defocus, motion&lt;/li&gt;
+  &lt;li&gt;Stereo: think of shape from two views, like human eyes. An anaglyph stereo put red and blue colors to either of the views, such that we can form a 3D vision in head.&lt;/li&gt;
+  &lt;li&gt;Basic idea of stereo(立体声): the movement from two views show people the depth of faraway background&lt;/li&gt;
+  &lt;li&gt;Basic stereo geometry: if there are two cameras pointing to the same object, the motion of moving background in two images can tell people the depth of non-moving object in the image. In brief, the point is to analyze the shape from ‘motion’ between two views.&lt;/li&gt;
+  &lt;li&gt;Geometry: by making a disparity map (disparity = distance a point has moved in two views), we can make a depth map.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-3b-l2-epipolar-geometry&quot;&gt;Lesson 3B-L2 Epipolar geometry&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;For a single point in the left image, the possible position that it could project onto the right image is along a line, this is called epipolar constraint.&lt;/li&gt;
+  &lt;li&gt;baseline: line joining the camera centers&lt;/li&gt;
+  &lt;li&gt;epipolar plane: plane containing baseline and world point&lt;/li&gt;
+  &lt;li&gt;epipolar line: intersection of epipolar plane with the image plane, also the epipolar constraint&lt;/li&gt;
+  &lt;li&gt;epipole: point of intersection of baseline with image plane&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-3b-l3-stereo-correspondence&quot;&gt;Lesson 3B-l3 Stereo correspondence&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Beyond the epipolar constraint, we need more constraints to help project left-image points onto right-image, such as similarity, uniqueness, ordering. This is called correspondence problem, which helps us to find matches in the image pair.&lt;/li&gt;
+  &lt;li&gt;In order to find matching point in the right image, we search along a slim window to find most similar (in correlation) point. This can serve as a similarity constraint.&lt;/li&gt;
+  &lt;li&gt;Best fitting of left and right image pixels can be reached by dynamic programming.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Computer Vision Note 6</title>
+   <link href="http://localhost:4000/computervision/2017/07/01/Computer-Vision-Note-6.html"/>
+   <updated>2017-07-01T18:13:00-04:00</updated>
+   <id>http://localhost:4000/computervision/2017/07/01/Computer-Vision-Note-6</id>
+   <content type="html">&lt;h3 id=&quot;lesson-3a-l1-cameras-and-images&quot;&gt;Lesson 3A-L1 Cameras and Images&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Up till now, an image is a function, a 2D pattern of intensity values.&lt;/li&gt;
+  &lt;li&gt;From this lesson, we think of images as 2D projections of 3D points.&lt;/li&gt;
+  &lt;li&gt;Pinhole camera: we make an aperture on a barrier, so that the projection of object can form a complete graph on the film.&lt;/li&gt;
+  &lt;li&gt;Instead, we use a lens to make projection in real world. Thin lense theorem: 1/z1 + 1/z2 = 1/f (f = focus)&lt;/li&gt;
+  &lt;li&gt;Varying focus can change the depth of field to be shown on screen.&lt;/li&gt;
+  &lt;li&gt;If one needs to blur remote scenes, he needs to enlarge aperture, such that scenes close the image will get blurred, as shown in the following figure &lt;img src=&quot;https://fanfanman.github.io/assets/udacitycv/cvapertureeffect.png&quot; alt=&quot;aperture&quot; /&gt; If there’s a scene close to the image, a larger aperture will form a larger image on the screen, which seems blurer. 即光圈大小影响了远景的模糊程度，光圈越大远景越模糊，成像越集中于某一物体。&lt;/li&gt;
+  &lt;li&gt;Focal length affects how far away can we shoot, which is the field of view, 即焦距大小影响了，我们能拍到的景色的远近，焦距越大，能拍到越远的景物。&lt;/li&gt;
+  &lt;li&gt;Funny phrase: reality can be a problem, which is a nicer way of saying life sucks.&lt;/li&gt;
+  &lt;li&gt;In reality, lenses are not perfect, they produce geometric distortion such as pin cushion distortion and barrel distortion.&lt;/li&gt;
+  &lt;li&gt;In reality, there’s also a chromatic abberation resulting from diffraction.&lt;/li&gt;
+  &lt;li&gt;In reality, there’s also a vignetting problem, when some of light leaks between two lenses, resulting in dark areas in images.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-3a-l2-perspective-imaging&quot;&gt;Lesson 3A-L2 Perspective Imaging&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Set up camera coordinate system: x pointing right, y pointing upwards, z pointing into the camera.&lt;/li&gt;
+  &lt;li&gt;Projection is used to get maths down in finding image position.&lt;/li&gt;
+  &lt;li&gt;But division by z is non-linear, we need to use homogeneous coordinates, by setting (x, y) to (x, y, 1) and (x, y, z) to (x, y, z, 1).&lt;/li&gt;
+  &lt;li&gt;And, projection became a matrix multiplication in homogeneous coordinates!&lt;/li&gt;
+  &lt;li&gt;Parallel lines converge in math in some point called vanishing point.&lt;/li&gt;
+  &lt;li&gt;Sets of parallel lines on the same plane lead to collinear vanishing points. The line is called the horizon. - two point perspective (两点透视). Which means, by looking for two vanishing points converged from parallel lines, we can figure out the horizon in an image!&lt;/li&gt;
+  &lt;li&gt;special case of perspective projection: orthographic projection (parallel projection), which is to smash scenes onto the screen.&lt;/li&gt;
+  &lt;li&gt;Since more maths are coming, fasten your seatbelts.&lt;/li&gt;
+  &lt;li&gt;Anamorphic images are amazing illusions designed using the pinciples of perspective projection.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Computer Vision Note 5</title>
+   <link href="http://localhost:4000/computervision/2017/06/29/Computer-Vision-Note-5.html"/>
+   <updated>2017-06-29T15:44:00-04:00</updated>
+   <id>http://localhost:4000/computervision/2017/06/29/Computer-Vision-Note-5</id>
+   <content type="html">&lt;h3 id=&quot;lesson-2c-l2-convolution-in-frequency-domain&quot;&gt;Lesson 2C-L2 Convolution in frequency domain&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Fourier transform enables us to compress figures into a frequency domain.&lt;/li&gt;
+  &lt;li&gt;Convolution in spatial domain = Multiplication in frequency domain, with math omitted. Convolution: g(x) = f(t) times h(x-t). Which means, The fourier transform of convolution = multiplication of fourier tranform of each operator, which makes the fourier transform of multiplication of two large functions quicker.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-2c-l3-aliasing&quot;&gt;Lesson 2C-L3 Aliasing&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Fourier transform of an inpulse train is another inpulse train.&lt;/li&gt;
+  &lt;li&gt;How to store and compute continuous functions? You sample and record down sampled values.&lt;/li&gt;
+  &lt;li&gt;How to reconstruction: Making samples back into continuous function? You have to guess what the functions are doing and connect the dots.&lt;/li&gt;
+  &lt;li&gt;For example, in computer graphics when there’s an illumination and you made a graph on screen by sampling, you can only get graphs in pixels. Then you need to smoothen the pixels to get a continuous graph.&lt;/li&gt;
+  &lt;li&gt;But sometimes if you didn’t sample enough, you cannot distinguish the actual shape of waveform, this is called aliasing: signals “traveling in disguise” as other frequencies.&lt;/li&gt;
+  &lt;li&gt;How to prevent aliasing except from taking more dots? get rid of some high frequencies but you will lose information.&lt;/li&gt;
+  &lt;li&gt;In order to get rid of high frequencies, we can put a lowpass filter at source, then we will take less high-frequency info from the source, thus we won’t worry about aliasing in reconstruction.&lt;/li&gt;
+  &lt;li&gt;Comb function (impulse train). Using the property that, as the spacing of impulse train gets larger in space, it gets narrower in frequency.&lt;/li&gt;
+  &lt;li&gt;Sampling is just multiplying a continuous signal by a discrete comb. And if the distance in original comb is M, the distance in its fourier is 1/M. So, by using the graph in Fourier transform within range 2/M, we can accurately reconstruct original graph.&lt;/li&gt;
+  &lt;li&gt;An image to an electrical engineer is usually processed in frequencies, but computer scientists usually think of images as data structures instead of signals.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Computer Vision Note 4</title>
+   <link href="http://localhost:4000/computervision/2017/05/26/Computer-Vision-Note-4.html"/>
+   <updated>2017-05-26T15:44:00-04:00</updated>
+   <id>http://localhost:4000/computervision/2017/05/26/Computer-Vision-Note-4</id>
+   <content type="html">&lt;h3 id=&quot;lesson-2b-l3-generalized-hough-transform&quot;&gt;Lesson 2B-L3 Generalized Hough Transform&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Non-analytic models: parameters express variation in pose of scale of fixed but arbitrary shape.&lt;/li&gt;
+  &lt;li&gt;Visual code-word based features: not edges but detected templates learned from models.&lt;/li&gt;
+  &lt;li&gt;For an arbitrary figure, we do not know how to vote, so we need to build a Hough table.&lt;/li&gt;
+  &lt;li&gt;Training Example: build a Hough table: 1. For each boundary point, compute displacement vector: r = c - pi (c is reference point to locate figure); 2. measure the gradient of angle theta at that boundary point; 3. store that displacement vector into a table indexed by theta.&lt;/li&gt;
+  &lt;li&gt;Recognition example: at each boundary point, measure the gradient angle theta; 2. look up all displacements in theta in displacement table; 3. vote for a center at each displacement.&lt;/li&gt;
+  &lt;li&gt;general idea: 在training中不停采集各个边界距离中心的可能位移。在实际测量中模拟这些可能位移，类似fitting，找出契合度最高的点。&lt;/li&gt;
+  &lt;li&gt;generalized Hough tranform algorithms: if orientation is known (you know all edges are pointing inwards from gradient): 1. for each edge point, compute gradient direction theta, retrieve displacement vectors r to vote for reference points; 2. peak in this Hough space (x, y) is reference point with most supporting edges. if orientation is unknownL for each edge point, for each possible master theta2: compute gradient direction theta, new theta’ = theta - theta2, for each theat’ retrieve displacement vectors to vote for reference point. Peak in this Hough space (x, y, theta2) is reference point with most supporting edges.&lt;/li&gt;
+  &lt;li&gt;If scale S is unknown: for each edge point, for each possible master scale S: compute gradient direction theta, for each theta retrieve displacement vectors r, vote r scaled by S for reference point. Peak in this Hough space (x, y, s) is reference point with supporint edges.&lt;/li&gt;
+  &lt;li&gt;instead of indexing displacements by gradient orientation, index by ‘visual codeword’, which is to find feature patches in a figure and use these features to find the figure.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-2c-l1-fourier-transform&quot;&gt;Lesson 2C-L1 Fourier transform&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Decomposing an image: basis sets: a basis B of a vector space V is a linearly independent subset of V that spans V. suppose that B = {v1, …, vn} for a finite subset of a vector space over a field F. Then B is a basis if it satisfies the following conditions: linear independence,  and spanning property.&lt;/li&gt;
+  &lt;li&gt;Consider an image as a point in a N times N size space - can rasterize into a single vector, and the normal basis is just the unit vectors.&lt;/li&gt;
+  &lt;li&gt;And there’s a special basis set called Fourier basis set. The square wave can be written as ASigma(1/k times sin(2pi kt)).&lt;/li&gt;
+  &lt;li&gt;In Fourier transform, we want to convert an image in space to frequency. The original image is y = f(x), after Fourier Tranform, it’s F(w) = R(w) + iI(w), and magnitude A = sqrt(RI) and phase phi = angle between R and I. real functions are due to even functions and imaginary functions are due to odd functions.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Computer Vision Note 3</title>
+   <link href="http://localhost:4000/computervision/2017/05/25/Computer-Vision-Note-3.html"/>
+   <updated>2017-05-25T15:25:00-04:00</updated>
+   <id>http://localhost:4000/computervision/2017/05/25/Computer-Vision-Note-3</id>
+   <content type="html">&lt;h3 id=&quot;lesson-2a-l6-edge-detection-2d-operators&quot;&gt;Lesson 2A-L6 Edge detection: 2D operators&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;For a derivative operator, larger sigma of the operator will generate sharper edges and larger-scale edges&lt;/li&gt;
+  &lt;li&gt;Primary edge detection steps: (how we convert gradient to edges) 1. smoothing derivatives to suppress noise and compute gradient; 2. threshold to find regions of significant gradient; 3. thin to get localized edge pixels; 4. link or connect edge pixels.&lt;/li&gt;
+  &lt;li&gt;Canny edge operator: 1. filter image with derivative operator; 2. find magnitude and orientation; 3. non-maximum suppression: thin multi-pixel wide ‘ridges’ down to single pixel width; 4. linking and thresholding: define two thresholds: low and high, use the high threshold to start edge curves and the low threshold to continue them.&lt;/li&gt;
+  &lt;li&gt;Non-maximum suppresion: because thresholding usually cut out the gaussian curves above threshold, generating a thick edge. we need to check if pixel is local maximum along gradient direciton. Problem with this: pixels along edge didn’t survive the thresholding.&lt;/li&gt;
+  &lt;li&gt;Canny threshold hysteresis: Apply a high threshold (during thresholing step) to detect strong edge pixels, link thoese strong edge pixels to form strong edges. Then apply a low threshold to find weak but plausible edge pixels and extend the strong edges to follow weak edge pixels.&lt;/li&gt;
+  &lt;li&gt;Useful code:
+    &lt;div class=&quot;language-matlab highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'imagename.png'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;imggray&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;rgb2gray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;imgedge&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;edge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imggray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'canny'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;% canny edge operator&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img1gray&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;img2gray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;% to view common pixels&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;doc&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;edge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;% for help doc&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;single 2d edge detection filter: laplacian operator (1d: derivative of gaussian (smoothing operator))&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-2b-l1-hough-transform-lines&quot;&gt;Lesson 2B-L1 Hough transform: Lines&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Parametric Model: A parametric model can represent a class of instances where each is defined by a value of the parameters, such as lines, or circles, or even a parameterized template.&lt;/li&gt;
+  &lt;li&gt;Example of parametric model fitting: line fitting.&lt;/li&gt;
+  &lt;li&gt;Difficulty of line fitting: Extra edge points (clutter), multiple models; Only some parts of each line detected, and some parts are missing, noise in measured edge points. So it’s hard to convert edges to lines&lt;/li&gt;
+  &lt;li&gt;Solution: Voting - Voting is a general technique where we let the features vote for all models that are compatible on it. 1. Cycle through features (edge points), each casting votes for model parameters; 2. Look for model parameters that receive a lot of votes.&lt;/li&gt;
+  &lt;li&gt;Hough transform: a voting techinique that can be used to fit lines. The main idea is: 1. each edge point votes for compatible lines; 2. look for lines that get many votes.&lt;/li&gt;
+  &lt;li&gt;The key to Hough transform is hough space. For example, line representation is y = mx + b, and we put m and b into Hough (parameter) space which is two dimensional plot of (m, b). Then a line in the image corresponds to a point in Hough space. And a point in image space correspondds to a line in Hough space. Then we loop through all points and find the grid in Hough space who has most intersections of lines.&lt;/li&gt;
+  &lt;li&gt;In order to avoid vertical lines which are difficult to represent, we use polar representation of lines. In solar representation, a point in image space is now a sinusoid segment in Hough space, xcost - ysint = d.&lt;/li&gt;
+  &lt;li&gt;A Hough accumulator array is used to keep the votes.&lt;/li&gt;
+  &lt;li&gt;Basic Hough transform algorithm: 1. Intitialize H[d, theta] = 0; 2. For each edge point in E(x, y) in the image, for theta = 0 to 180: d = xcostheta - ysintheta, H[d, theta] += 1 (which gives you a graph of sinusoids); 3. find the values of (d, theta) where H[d, theta] is maximum; 4. the detected line in the image is given by d = xcostheta - ysintheta.&lt;/li&gt;
+  &lt;li&gt;Algorithm analysis: space complexity: k^n (n dimensions, k bins each). time complexity: constant times edge points.&lt;/li&gt;
+  &lt;li&gt;Useful code:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[assum theta rho] = hough(edges); % hough function
+figure, imagesc(accum, 'XData', theta, 'YData', rho), title('Hough accumulator');
+peaks = houghpeaks(accum, 100);
+hold on; plot(theta(peaks(:, 2)), rho(peaks(:, 1)), 'rs'); hold off;
+linesegs = houghlines(edges, theta, rho, peaks);
+peaks = houghpeaks(accum, 100, 'Threshold', ceil(0.6*max(accum(:))), 'NHoodSize', [5 5]); % more precise lines
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Extensions - using the gradient. In the algorithm above, instead of looping through all possible thetas, we set theta = gradient at (x, y), which will reduce the time hugely.&lt;/li&gt;
+  &lt;li&gt;Extension 2: give more votes for stronger edges&lt;/li&gt;
+  &lt;li&gt;Extension 3: change the smapling of (d, theta) to give more/less resolution&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-2b-l2-hough-transform-circles&quot;&gt;Lesson 2B-L2 Hough transform: Circles&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;For a fixed radius r, unknown gradient direction: any point on the circle with function (x-a)^2 + (y-b)^2 = r^2 could be converted to a circle with radius r locating at xi and yi in Hough space (a, b).&lt;/li&gt;
+  &lt;li&gt;For unknown radius r, no gradient: a point on circle in image space can be converted to a cone in Hough space (r, a, b).&lt;/li&gt;
+  &lt;li&gt;For unknown radius, with gradient: gradient points perpendicular to radius, a point on circle in image space can be converted to a line in Hough space (r, a, b).&lt;/li&gt;
+  &lt;li&gt;Voting pratical tips: minimize irrelevant tokens first; choose a good grid&lt;/li&gt;
+  &lt;li&gt;Pros: All points are processed independently, so can cope with occlusion; some robustness to noise; can detect multiple instantces of a model in a single image.&lt;/li&gt;
+  &lt;li&gt;Cons: Complexity of search time increases exponentially with the number of model parameters; quantization: hard to pick a good grid size.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Computer Vision Note 2</title>
+   <link href="http://localhost:4000/computervision/2017/05/22/Computer-Vision-Note-2.html"/>
+   <updated>2017-05-22T17:22:00-04:00</updated>
+   <id>http://localhost:4000/computervision/2017/05/22/Computer-Vision-Note-2</id>
+   <content type="html">&lt;h3 id=&quot;lesson-2a-l2-filtering&quot;&gt;Lesson 2A-L2 Filtering&lt;/h3&gt;
+&lt;p&gt;This lesson is about removing noise to recover real information. The method of averaging over nearby bins to get real info is called correlation filtering, there are also two types of averaging:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Moving average, which is to take uniform average of nearby bins as real info&lt;/li&gt;
+  &lt;li&gt;Weighted moving average, which is to assign weights onto nearby bins and then take average. Also called cross correlation. A gaussian filter is usually being used.&lt;/li&gt;
+  &lt;li&gt;Matlab gaussian filter function:
+‘'’matlab
+h = fspecial(‘gaussian’, hsize, sigma);
+surf(h)
+imagesc(h);
+outim = imfilter(im, h)
+‘’’&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-2a-l3-linearity-and-convolution&quot;&gt;Lesson 2A-L3 Linearity and convolution&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Linearity: An operator H (or system) is linear if two properties hold (f1, f2 are functions, a is a constant): 1. Additivity: H(f1 + f2) = H(f1) + H(f2); 2. Multiplicative scaling (Homogeneity of degree 1): H(af1) = aH(f1)&lt;/li&gt;
+  &lt;li&gt;But there’s a problem with correlation that, when you input a pulse function, the result after applying matrix multiplication would be mirror to the matrix function. So, we need to apply convolution.&lt;/li&gt;
+  &lt;li&gt;Boundary issues: there are several options to deal with boundaries: original, circular, replicate, symmetric.&lt;/li&gt;
+  &lt;li&gt;Sharpening filter: 2 times pulse filter - blurry filter&lt;/li&gt;
+  &lt;li&gt;Median filter, non-linear but edge preserving, can be used to filter through sparse random noise (‘salt and pepper’ noise), can be called smoothing operator.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-2a-l4-filters-as-templates&quot;&gt;Lesson 2A-L4 Filters as templates&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Matching a piece of picture onto the entire pictures uses a method called ‘normalized correlation’, actually it’s all about calculating chi squared… Or finding a subsequence in a sequence requires further knowledge in algorithms.&lt;/li&gt;
+  &lt;li&gt;This is especially useful in detecting some template in a complicated figure (term: template matching). Could be used in alphabet recognition, face recognition, these kinds of computer vision application areas.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lesson-2a-l5-edge-detection-gradients&quot;&gt;Lesson 2A-L5 Edge detection: Gradients&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Edges are important in recogniting an object in an image&lt;/li&gt;
+  &lt;li&gt;Origin of edges: surface normal discontinuity, depth discontinuity, surface color discontinuity, illumination discontinuity. Edge detection is important in coverting image to curves that matter.&lt;/li&gt;
+  &lt;li&gt;Edge detection basic idea: looking for a neighborhood with strong signs of change.&lt;/li&gt;
+  &lt;li&gt;Edge is a place of rapid change in the image intensity function. So finding edges is somehow related to finding local extremes in derivatives.&lt;/li&gt;
+  &lt;li&gt;Basic idea: 1. define differential operators: when applied to the image, it returns some derivatives. 2. We apply these operators as masks/kernels that compute the image gradient function. 3. Threshold this gradient function to select the edges.&lt;/li&gt;
+  &lt;li&gt;Gradient points in the direction of most rapid increase in the intensity, in computer science, we need to do discrete gradient. So, horizongtal gradient would become df/dx = [f(x+1, y) - f(x, y)]/1&lt;/li&gt;
+  &lt;li&gt;discrete gradient operator to deal with images would look like &lt;img src=&quot;https://fanfanman.github.io/assets/udacitycv/cvgradientoperator.png&quot; alt=&quot;gradientoperator&quot; /&gt; and Sobel operator is like &lt;img src=&quot;https://fanfanman.github.io/assets/udacitycv/cvsobeloperator.png&quot; alt=&quot;sobeloperator&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;Some well-known gradient operators: Sobel, Prewitt, Roberts. Matlab filter function: filt = fspecial(‘sobel’), which applies sobel operator.&lt;/li&gt;
+  &lt;li&gt;Keep in mind the difference between correlation and convolution in image processing.&lt;/li&gt;
+  &lt;li&gt;But in real world, due to noises the gradient operator may fail somehow, so we may need to do smoothing first, or smoothing after gradient operator. (It’s a bit like in signal system, all about operators). Varying filter rather than filtering after filtering usually saves time and space.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Computer Vision Note 1</title>
+   <link href="http://localhost:4000/computervision/2017/05/18/Computer-Vision-Note-1.html"/>
+   <updated>2017-05-18T17:22:00-04:00</updated>
+   <id>http://localhost:4000/computervision/2017/05/18/Computer-Vision-Note-1</id>
+   <content type="html">&lt;h3 id=&quot;overview&quot;&gt;Overview&lt;/h3&gt;
+&lt;p&gt;Well, it’s my second time trying to learn computer vision. Just a little bit interested in it.&lt;/p&gt;
+
+&lt;p&gt;The difference between computer vision and computer graphics would be:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Input\Output&lt;/td&gt;
+      &lt;td&gt;Image&lt;/td&gt;
+      &lt;td&gt;Knowledge&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Image&lt;/td&gt;
+      &lt;td&gt;Image processing&lt;/td&gt;
+      &lt;td&gt;Computer vision&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Knowledge&lt;/td&gt;
+      &lt;td&gt;Computer graphics&lt;/td&gt;
+      &lt;td&gt;Artificial Intelligence&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Calm down and carry on!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;topic-outline&quot;&gt;Topic Outline&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Image processing and Computer vision&lt;/li&gt;
+  &lt;li&gt;Camera models and views&lt;/li&gt;
+  &lt;li&gt;Features and matching&lt;/li&gt;
+  &lt;li&gt;Lightness and Brightness&lt;/li&gt;
+  &lt;li&gt;Image motion&lt;/li&gt;
+  &lt;li&gt;Motion and tracking&lt;/li&gt;
+  &lt;li&gt;Classification and recognition (Machine Learning)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Hope I could master the material…&lt;/p&gt;
+
+&lt;h3 id=&quot;lesson-2a-l1-images-as-functions&quot;&gt;Lesson 2A-L1 Images as functions&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Images can be inpreted as an intensity function about x and y, I(x, y) for grey-level images, and rgb vector-functions for color images.&lt;/li&gt;
+  &lt;li&gt;Some useful functions in matlab to process an image:
+    &lt;div class=&quot;language-matlab highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;% Note: matlab starts from 1 and x:y includes number y...&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dolphin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;png&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;disp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cropped&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ymin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ymax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xmin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;% At a given location (row, col):&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;img_red&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(:,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;% filter through color plane&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img_red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;150&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:));&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;% plot image values on 150th row&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;functionname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;endfunction&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;% adding function&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;noise&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;randn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;% adding noise drawn from gaussian distribution&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;noise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;% making a histogram from noise&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;noise&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;randn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;im&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sigma&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;% gaussian noise&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Computer Graphics Learning Note last one</title>
+   <link href="http://localhost:4000/jekyll/update/2016/11/26/deleted-code.html"/>
+   <updated>2016-11-26T16:22:00-05:00</updated>
+   <id>http://localhost:4000/jekyll/update/2016/11/26/deleted-code</id>
+   <content type="html">&lt;p&gt;Well, the last time I opened the course directory, I found that the homework code directory is deleted by the teacher. F**k it!!!!!!
+Well, as a result, I will focus on research work for now, I guess…&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Computer Graphics Learning Note 2</title>
+   <link href="http://localhost:4000/jekyll/update/2016/11/11/Learning-note-2.html"/>
+   <updated>2016-11-11T16:22:00-05:00</updated>
+   <id>http://localhost:4000/jekyll/update/2016/11/11/Learning-note-2</id>
+   <content type="html">&lt;p&gt;Readings are &lt;a href=&quot;http://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-ray-tracing/raytracing-algorithm-in-a-nutshell&quot; target=&quot;_blank&quot;&gt;Intro to Ray Tracing 2&lt;/a&gt;, &lt;a href=&quot;http://web.ics.purdue.edu/~zhan2600/assets/dukecs344/02lighting.pdf&quot; target=&quot;_blank&quot;&gt;Lighting PPT&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;intro-to-ray-tracing-2&quot;&gt;Intro to Ray Tracing 2&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;The advantage of Ray Tracing: only a few lines to code; disadvantage: time-consuming.&lt;/li&gt;
+  &lt;li&gt;Mainly consist of two steps: one step to determine whether object is visible, and the other step to shade the points.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;shading-models&quot;&gt;Shading Models&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;This lecture &lt;a href=&quot;http://web.ics.purdue.edu/~zhan2600/assets/dukecs344/02lighting.pdf&quot; target=&quot;_blank&quot;&gt;PPT&lt;/a&gt; is very informative on shading models.&lt;/li&gt;
+  &lt;li&gt;Based on geometry, lighting and material, there are several layers of lighting which perfects the simulation.&lt;/li&gt;
+  &lt;li&gt;1st layer / Diffuse reflection(漫反射): where light goes everywhere, and shades are colored by object color. This light has already been included in Ray Tracing model.
+    &lt;ul&gt;
+      &lt;li&gt;Light reflects equally in all directions&lt;/li&gt;
+      &lt;li&gt;View independent&lt;/li&gt;
+      &lt;li&gt;Illumination on an oblique surface is less than on a normal one&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;2nd layer / Ambient reflection: don’t worry about where light comes from, just add a constant amount of light to account for other sources of illumination.
+    &lt;ul&gt;
+      &lt;li&gt;Usually added onto the front surface of oblique objects to reflect illumination.&lt;/li&gt;
+      &lt;li&gt;View independent&lt;/li&gt;
+      &lt;li&gt;Reflected light strength depends on: diffuse coefficient, illumination from source.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;3rd layer / Specular reflection(镜面反射): only happens near mirror configuration, usually white, enhances the appearance of object.
+    &lt;ul&gt;
+      &lt;li&gt;Usually added onto the front surface of metallic objects to reflect illumination.&lt;/li&gt;
+      &lt;li&gt;View dependent&lt;/li&gt;
+      &lt;li&gt;bright near mirror configuration&lt;/li&gt;
+      &lt;li&gt;Reflected light strength depends on: specular coefficient, light intensity, angle between viewer and mirror direction, air permeation constant.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Examples of shading models are:
+    &lt;ul&gt;
+      &lt;li&gt;Diffuse shading: &lt;img src=&quot;http://web.ics.purdue.edu/~zhan2600/assets/dukecs344/diffuseshading.png&quot; alt=&quot;Diffuse shading&quot; /&gt;&lt;/li&gt;
+      &lt;li&gt;Diffuse + Specular shading: &lt;img src=&quot;http://web.ics.purdue.edu/~zhan2600/assets/dukecs344/specularshading.png&quot; alt=&quot;Diffuse + Specular shading&quot; /&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Computer Graphics: How to Install JOGL in Eclipse Windows 7</title>
+   <link href="http://localhost:4000/jekyll/update/2016/11/08/JOGL-installation.html"/>
+   <updated>2016-11-08T13:00:00-05:00</updated>
+   <id>http://localhost:4000/jekyll/update/2016/11/08/JOGL-installation</id>
+   <content type="html">&lt;h2 id=&quot;how-to-install-jogl-in-eclipse-windows-7&quot;&gt;How to install JOGL in Eclipse Windows 7&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;The official installation guide is attached &lt;a href=&quot;http://jogamp.org/wiki/index.php/Downloading_and_installing_JOGL&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Firstly, a complete package of jogamp should be downloaded (which includes jogl packages) from this &lt;a href=&quot;https://jogamp.org/deployment/jogamp-current/archive/jogamp-all-platforms.7z&quot;&gt;link&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Copy jogamp package to default Eclipse workspace directory, and unzip.&lt;/li&gt;
+  &lt;li&gt;Set up JOGL in Eclipse according to &lt;a href=&quot;https://jogamp.org/wiki/index.php/Setting_up_a_JogAmp_project_in_your_favorite_IDE#Eclipse_IDE_project&quot; target=&quot;_blank&quot;&gt;official instructions&lt;/a&gt;. Which is, to create a specific library package for JOGL, such that everytime we need to create an application which uses JOGL package, we refer to that specific JOGL package.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Computer Graphics Learning Note 1</title>
+   <link href="http://localhost:4000/jekyll/update/2016/11/07/Learning-note-1.html"/>
+   <updated>2016-11-07T13:00:00-05:00</updated>
+   <id>http://localhost:4000/jekyll/update/2016/11/07/Learning-note-1</id>
+   <content type="html">&lt;ul&gt;
+  &lt;li&gt;Learning material is from &lt;a href=&quot;https://www.cs.duke.edu/courses/compsci344/spring15/&quot; target=&quot;_blank&quot;&gt;DukeCS 344&lt;/a&gt;. And, a schedule is recorded &lt;a href=&quot;../../../2016/11/07/Starting-to-learn-computer-graphics.html&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;PPTS are &lt;a href=&quot;https://web.ics.purdue.edu/~zhan2600/assets/dukecs344/01intro.pdf&quot; target=&quot;_blank&quot;&gt;Overview&lt;/a&gt;, &lt;a href=&quot;https://www.cs.duke.edu/courses/compsci344/spring15/classwork/02_raytracing/&quot; target=&quot;_blank&quot;&gt;Intro to Raytracing&lt;/a&gt;, &lt;a href=&quot;http://www.siggraph.org/education/materials/HyperGraph/raytrace/rtrace0.htm&quot; target=&quot;_blank&quot;&gt;Ray Tracing Tutorial&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;overview&quot;&gt;Overview&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Problems in graphics
+    &lt;ul&gt;
+      &lt;li&gt;2D imaging: compositing and layering, digital filtering, color transformations&lt;/li&gt;
+      &lt;li&gt;2D drawing: illustration, drafting, text, GUIs&lt;/li&gt;
+      &lt;li&gt;3D modeling: representing 3D shapes, procedural modeling&lt;/li&gt;
+      &lt;li&gt;3D rendering: 2D views of 3D geometry, projection and perspective, remove hidden surfaces, lighting sumulation&lt;/li&gt;
+      &lt;li&gt;Interaction: 2D graphical user interfaces, 3D modeling interfaces, virtual reality&lt;/li&gt;
+      &lt;li&gt;Animation: keyframe animation, physical simulation&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;In one sentence: How to use computer to draw as real as possible and maximize production.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;intro-to-ray-tracing&quot;&gt;Intro to Ray Tracing&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Purpose: use ray tracing to simulate 2D lighting images.&lt;/li&gt;
+  &lt;li&gt;A simple illustration: &lt;img src=&quot;http://web.ics.purdue.edu/~zhan2600/assets/dukecs344/raytracingalgorithm.png&quot; alt=&quot;Raytracingalgorithm&quot; /&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;ray-tracing-tutorial&quot;&gt;Ray Tracing Tutorial&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Principle: like scan-line graphics, ray tracing is a point sampling algorithm. We sample a continuous image in world coordinates by shooting one or more rays through each pixel, and the pixel is then set to the color values returned by the ray.&lt;/li&gt;
+  &lt;li&gt;Example: in a simple example of a ball on a plane, there are basically four types of lighting modes. Background mode, shadow-on-bkg mode, illuminated-by-bkg-on-ball mode, and normal ball mode. &lt;img src=&quot;http://web.ics.purdue.edu/~zhan2600/assets/dukecs344/raytracingill.gif&quot; alt=&quot;Illustration&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;Complicated examples: In complicated models where there are more than one light sources and objects, it’d be better if we construct a tray tree, because there will be several reflected lights among objects. The reflective and/or transimitted rays are continually generated until the ray leaves the scene without hitting any object or a preset recursion level has been reached. Then we can modify local illumination model by a combination of reflected rays and transmitted rays at each tree node.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Starting to learn computer graphics</title>
+   <link href="http://localhost:4000/jekyll/update/2016/11/06/Starting-to-learn-computer-graphics.html"/>
+   <updated>2016-11-06T22:56:00-05:00</updated>
+   <id>http://localhost:4000/jekyll/update/2016/11/06/Starting-to-learn-computer-graphics</id>
+   <content type="html">&lt;p&gt;Learning material is from &lt;a href=&quot;https://www.cs.duke.edu/courses/compsci344/spring15/&quot; target=&quot;_blank&quot;&gt;DukeCS 344&lt;/a&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;learning-progress&quot;&gt;Learning Progress&lt;/h3&gt;
+&lt;p&gt;Well, the learning progress will be recorded here, in order to encourage me to learn it every day (hope so).&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Date&lt;/td&gt;
+      &lt;td&gt;learning note&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Nov 7th&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;&quot;&gt;learning note 1&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Nov 8th&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;&quot;&gt;JOGL installation guide&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;NOv 11th&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;&quot;&gt;learning note 2&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Calm down from online-shopping and keep learning _(:°з」∠)_!&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>JavaScript Snake Game</title>
+   <link href="http://localhost:4000/jekyll/update/2016/01/04/javascript-snakegame.html"/>
+   <updated>2016-01-04T12:00:00-05:00</updated>
+   <id>http://localhost:4000/jekyll/update/2016/01/04/javascript-snakegame</id>
+   <content type="html">&lt;script type=&quot;text/javascript&quot; src=&quot;https://code.jquery.com/jquery-1.7.1.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;../../../../../assets/javascript/snakegame.js&quot;&gt;&lt;/script&gt;
+&lt;p&gt;This snake game is written in JavaScript after I've read the tutorial in &lt;a href=&quot;http://thecodeplayer.com/walkthrough/html5-game-tutorial-make-a-snake-game-using-html5-canvas-jquery&quot;&gt;This Link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;You are welcome to play with it XP.&lt;/p&gt;
+&lt;canvas id=&quot;snakecanvas&quot; width=&quot;300&quot; height=&quot;300&quot;&gt;&lt;/canvas&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>JavaScript DOM 编程艺术</title>
+   <link href="http://localhost:4000/jekyll/update/2015/12/29/javascript-dom-programming-skill.html"/>
+   <updated>2015-12-29T16:57:00-05:00</updated>
+   <id>http://localhost:4000/jekyll/update/2015/12/29/javascript-dom-programming-skill</id>
+   <content type="html">&lt;p&gt;&lt;a href=&quot;http://www.amazon.com/DOM-Scripting-Design-JavaScript-Document/dp/1430233893&quot;&gt;DOM Scripting&lt;/a&gt;: Web Design with JavaScript and the Document Object Model 读书笔记&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;chapter-1-简史&quot;&gt;Chapter 1 简史&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;JavaScript是一种脚本语言，通常只能通过浏览器去完成某种操作而不是像普通意义上的程序那样可以独立运行。&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;DOM: Document Object Model&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;W3C对DOM的定义是：“一个与系统平台和编程语言无关的接口，程序和脚本可以通过这个接口动态的对文档的内容、结构和样式进行访问和修改。”&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;chapter-2-javascript-语法&quot;&gt;Chapter 2 JavaScript 语法&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;程序设计语言分为解释型和编译型两大类：
+    &lt;ul&gt;
+      &lt;li&gt;Java和C++等语言需要一个编译器(Compiler)来将代码翻译为直接在计算机上执行的二进制可执行文件的程序。&lt;/li&gt;
+      &lt;li&gt;对于JavaScript语言，浏览器将负责完成有关的解释与执行工作。浏览器中的js解释器将直接读入源代码并加以执行。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;JS语法：
+    &lt;ul&gt;
+      &lt;li&gt;Declaration: &lt;code class=&quot;highlighter-rouge&quot;&gt;var A=&quot;happy&quot;, B=&quot;3&quot;&lt;/code&gt;, 区分大小写。&lt;/li&gt;
+      &lt;li&gt;不需要进行类型声明(int, string…)，是弱类型(weakly typed)语言。&lt;/li&gt;
+      &lt;li&gt;声明数组：&lt;code class=&quot;highlighter-rouge&quot;&gt;var beatles = Array(); &lt;/code&gt;或者&lt;code class=&quot;highlighter-rouge&quot;&gt;var beatles = [&quot;John&quot;, &quot;Paul&quot;, &quot;George&quot;, &quot;Ringo&quot;];&lt;/code&gt;。&lt;/li&gt;
+      &lt;li&gt;javascript中的map是关联数组(associative array)&lt;/li&gt;
+      &lt;li&gt;定义函数：&lt;code class=&quot;highlighter-rouge&quot;&gt;function name(argument) {statements;}&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;chapter-3-dom&quot;&gt;Chapter 3 DOM&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;四种方法：
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;document.getElementById()&lt;/code&gt;方法，返回一个对象。&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;element.getElementsByTagName(tag)&lt;/code&gt;方法，返回一个对象数组。&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;object.getAttribute(attribute)&lt;/code&gt;方法，返回对象的一个属性。&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;object.setAttribute(attribute, value)&lt;/code&gt;方法，修改属性节点的值。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;chapter-4-案例研究javascript图片库&quot;&gt;Chapter 4 案例研究：JavaScript图片库&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-5-javascript编程原则&quot;&gt;Chapter 5 JavaScript编程原则&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;脚本编程中需要注意一下几点：
+    &lt;ul&gt;
+      &lt;li&gt;预留退路：防止浏览器不兼容情况。&lt;/li&gt;
+      &lt;li&gt;分离JavaScript：防止不兼容。&lt;/li&gt;
+      &lt;li&gt;向后兼容性：不同的浏览器对js的支持程度不同，因此需要在脚本里对浏览器对js的支持程度进行查询。使用&lt;code class=&quot;highlighter-rouge&quot;&gt;if (!method) {use another method; }&lt;/code&gt;。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;一言以蔽之：就是要注意兼容性。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;chapter-6-案例研究javascript图片库改进版&quot;&gt;Chapter 6 案例研究：JavaScript图片库改进版&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-7-动态创建html内容&quot;&gt;Chapter 7 动态创建HTML内容&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;Normal method to create HTML contetnt: &lt;code class=&quot;highlighter-rouge&quot;&gt;document.write()&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;innerHTML&lt;/code&gt;.
+    &lt;ul&gt;
+      &lt;li&gt;Both of them aim at changing existed elements.&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;document.write()&lt;/code&gt; method: write element into HTML. Cons: have to call function in HTML, JS isn’t separated from HTML.&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;innerHTML&lt;/code&gt;: read and change the HTML content of a certain element. Cons: not DOM standard. Which means, the inserted string is only read into HTML webpage as a string, not a DOM tree structure. Pros: can insert a large amount of code immediately.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Advanced method: &lt;code class=&quot;highlighter-rouge&quot;&gt;createElement()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;createTextNode()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;appendChild()&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;insertBefore()&lt;/code&gt;. Can create elements, better method. Working principle: HTML builds the structure of website, and JavaScript functions modify little details of HTML.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;chapter-8-content-expansion&quot;&gt;Chapter 8 Content Expansion&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Two main principles: progressive enhancement, reserve backtrail.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;chapter-9-css-dom&quot;&gt;Chapter 9 CSS-DOM&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;The presentation layers of websites are built with css.&lt;/li&gt;
+  &lt;li&gt;The behavior layers of websites answer “how to react to events” are built by HTML and JavaScript.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;chapter-10-use-javascript-to-make-animation&quot;&gt;Chapter 10 Use JavaScript to make animation&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Time: JS can use &lt;code class=&quot;highlighter-rouge&quot;&gt;var variable = setTimeout(&quot;function&quot;, interval)&lt;/code&gt; to execute function with a certain time interval.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;chapter-11-javascript-design-example&quot;&gt;Chapter 11 JavaScript Design Example&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-12-dom-scripting-prospect&quot;&gt;Chapter 12 DOM Scripting Prospect&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Ajax: asynchronous tech.&lt;/li&gt;
+  &lt;li&gt;Web Application Development: put desktop programs online.
+    &lt;ul&gt;
+      &lt;li&gt;Pros: modification to online applications can apply to every user immediately, no need to download and update.&lt;/li&gt;
+      &lt;li&gt;Cons: compared to desktop operating system, browser doesn’t have enough functions. GUI + interactive function aren’t complete.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;As the DOM tree is similar to OS file tree, why not put applications and files online, and get rid of the redundant physical operating system.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;To quote from Tim Berners Lee, inventor of World Wide Web:&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Web users ultimately want to get at data quickly and easily. They don’t care as much about attractive sites and pretty design.&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Intellectual property is an important legal and cultural issue. Society as a whole has complex issues to face here: private ownership vs. open source, and so on.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The power of internet relies on its inclusive property. The main feature is that it’s accessible to everyone.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Head first HTML, CSS and XHTML</title>
+   <link href="http://localhost:4000/update/2015/12/25/head-first-html.html"/>
+   <updated>2015-12-25T15:21:08-05:00</updated>
+   <id>http://localhost:4000/update/2015/12/25/head-first-html</id>
+   <content type="html">&lt;p&gt;相关书籍与网页:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.zhihu.com/question/22689579/answer/22318058&quot;&gt;知乎：Web建站技术中html, html5, css, sql…是什么&lt;/a&gt; （前端和后端分别是什么？用哪些技术实现？）&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://headfirstlabs.com/books/hfhtml/&quot;&gt;Head first HTML, CSS and XHTML&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;head-first-html-css-and-xhtml-reading-notes&quot;&gt;Head First HTML, CSS and XHTML reading notes:&lt;/h2&gt;
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;chapter-1-web-语言&quot;&gt;Chapter 1 Web 语言&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;HTML: HyperText Markup Language, used to build website’s structure.&lt;/li&gt;
+  &lt;li&gt;CSS: Cascading Style Sheet, used to control HTML’s outlook.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;chapter-2-认识html中的ht&quot;&gt;Chapter 2 认识HTML中的’HT’&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-3-网页创建&quot;&gt;Chapter 3 网页创建&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;区分块元素(block)，内联元素(inline)，空元素：
+    &lt;ul&gt;
+      &lt;li&gt;块元素：前后都有换行符，ex: ‘h2’, ‘blockquote’;&lt;/li&gt;
+      &lt;li&gt;内联元素：在网页中随文字流出现在行内，ex: ‘a’, ‘p’, ‘em’。&lt;/li&gt;
+      &lt;li&gt;空元素：没有实际意义的元素，ex: ‘br’, ‘img’&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;html列表：
+    &lt;ol&gt;
+      &lt;li&gt;把每个列表项目放进一个&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;li&amp;gt;&lt;/code&gt;元素中，&lt;/li&gt;
+      &lt;li&gt;用&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;ol&amp;gt;&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;ul&amp;gt;&lt;/code&gt;封装列表元素。&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;ol&amp;gt;&lt;/code&gt;封装有序列表，&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;ul&amp;gt;&lt;/code&gt;封装无序列表。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;chapter-4-web之旅&quot;&gt;Chapter 4 Web之旅&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;URL: Uniform Resource Locator 统一资源定位符。
+ 是一个全球性地址，用于定位网上的资源。
+ URL=接受资源的协议(http) + 网站名(fanfanman.github.io) + 以根目录到资源的绝对路径(index.html)&lt;/li&gt;
+  &lt;li&gt;HTTP：TyperText Transfer Protocol 超文本传输协议。
+ 即传输超文本(HTML网页)的协议。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;chapter-5-认识媒体&quot;&gt;Chapter 5 认识媒体&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;JPEG与GIF的区别：
+    &lt;ul&gt;
+      &lt;li&gt;JPEG：用于照片和复杂图像，有损格式，颜色更丰富，不支持透明。&lt;/li&gt;
+      &lt;li&gt;GIF：用于纯色图像、logo、几何图形，颜色少，无损格式，可透明背景。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;chapter-6-严格的html&quot;&gt;Chapter 6 严格的HTML&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;这本第二版的书的所有内容都基于HTML4，而现已推行HTML5，因此最好使用&lt;a href=&quot;http://www.w3schools.com&quot;&gt;W3C&lt;/a&gt;的规范。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;chapter-7-添加一个x到html&quot;&gt;Chapter 7 添加一个’X’到HTML&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-8-开始学习css&quot;&gt;Chapter 8 开始学习CSS&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-9-字体和颜色样式&quot;&gt;Chapter 9 字体和颜色样式&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-10-盒模式&quot;&gt;Chapter 10 盒模式&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;题目越来越鬼畜，内容越来越多余。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;chapter-11-高级网站构建&quot;&gt;Chapter 11 高级网站构建&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;div&amp;gt;&lt;/code&gt;外容器，&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;span&amp;gt;&lt;/code&gt;内联容器。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;chapter-12-布置元素&quot;&gt;Chapter 12 布置元素&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-13-表格与更多列表&quot;&gt;Chapter 13 表格与更多列表&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;表格：表格用&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;table&amp;gt;&lt;/code&gt;表示，&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;th&amp;gt;&lt;/code&gt;表头元素包含一个单元格，&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;tr&amp;gt;&lt;/code&gt;元素包含一行，&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;td&amp;gt;&lt;/code&gt;包含一个表格中的数据单元。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;chapter-14-交互活动&quot;&gt;Chapter 14 交互活动&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Web应用程序基于脚本语言(如php)或程序语言(如python)，web应用程序可以接收浏览器发送给服务器的数据，并响应。&lt;/li&gt;
+  &lt;li&gt;表单有：
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;form action=&quot;example.php&quot; method=&quot;POST&quot;&amp;gt;表单元素&amp;lt;/form&amp;gt;&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;input type=&quot;text&quot; name=&quot;fullname&quot;&amp;gt;输入文本框&amp;lt;/input&amp;gt;&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;input type=&quot;submit&quot;&amp;gt;Submit按钮&amp;lt;/input&amp;gt;&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;input type=&quot;radio&quot; name=&quot;问题名&quot; value=&quot;hot值&quot;&amp;gt;单选框&amp;lt;/input&amp;gt;&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;input type=&quot;checkbox&quot; name=&quot;问题名&quot; value=&quot;啥&quot;&amp;gt;复选框&amp;lt;/input&amp;gt;&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;textarea name=&quot;comments&quot; rows=&quot;10&quot; cols=&quot;48&quot;&amp;gt;文本区&amp;lt;/textarea&amp;gt;&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;select name=&quot;选择列表&quot;&amp;gt;&lt;/code&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;option value=&quot;狗&quot;&amp;gt;狗&amp;lt;/option&amp;gt;...&amp;lt;/select&amp;gt;&lt;/code&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;…&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;浏览器输送数据的两种方式：
+    &lt;ul&gt;
+      &lt;li&gt;Post：把表单变量打包后隐藏在后台发送给服务器。&lt;/li&gt;
+      &lt;li&gt;Get：将表单变量附加在URL后发送给服务器。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;appendix-a-更多思考&quot;&gt;Appendix A 更多思考&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;如何嵌入多媒体与flash？用&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;embed&amp;gt;&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;object&amp;gt;&lt;/code&gt;。&lt;/li&gt;
+  &lt;li&gt;如何增强客户端交互活动？使用客户端脚本语言，ex: JavaSript。&lt;/li&gt;
+  &lt;li&gt;如何做Web应用程序？使用服务器端脚本语言，ex: PHP, Ruby…&lt;/li&gt;
+  &lt;li&gt;如何更容易被搜索引擎找到？在&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;head&amp;gt;&lt;/code&gt;开始从添加两个&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;mega&amp;gt;&lt;/code&gt;标签。
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;meta name=&quot;description&quot; content=&quot;verbose description&quot;/&amp;gt;&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;meta name=&quot;keywords&quot; content=&quot;shitty keyword, crappy keyword&quot;/&amp;gt;&lt;/code&gt;&lt;br /&gt;
+如果不希望被找到，可以添加：&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;meta name=&quot;robota&quot; content=&quot;noindex, nofollow&quot; /&amp;gt;&lt;/code&gt;&lt;br /&gt;
+思考：关于爬虫协议robots.txt。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;如何增强兼容性？
+    &lt;ul&gt;
+      &lt;li&gt;制作适应打印的样式表。&lt;/li&gt;
+      &lt;li&gt;使网页适应移动设备以及各浏览器。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>How to build a static blog with Jekyll</title>
+   <link href="http://localhost:4000/jekyll/update/2015/12/22/How-to-build-blog-with-jekyll.html"/>
+   <updated>2015-12-22T16:59:00-05:00</updated>
+   <id>http://localhost:4000/jekyll/update/2015/12/22/How-to-build-blog-with-jekyll</id>
+   <content type="html">&lt;h3 id=&quot;why-do-we-build-a-blog-with-jekyll&quot;&gt;Why do we build a blog with Jekyll?&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;The blog will be hosted freely on our free Github account, which removes the redundent process to request a domain name.&lt;/li&gt;
+  &lt;li&gt;Once the blog was set up on Jekyll frame, it would be much easier to write a blog in markdown language (.markdown) or Github Flavoured Markdown language (.md).&lt;/li&gt;
+  &lt;li&gt;As a programming learner, it would be better to learn how to code to blog rather than to drag to blog.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;how-do-we-build-a-blog-with-jekyll&quot;&gt;How do we build a blog with Jekyll?&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;Install Jekyll on local host as described in &lt;a href=&quot;http://jekyllrb.com/docs/home/&quot;&gt;Jekyll official documentary&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Launch Github page in a new repository username.github.io.&lt;/li&gt;
+  &lt;li&gt;Type
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jekyll new .
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;to build a jekyll project in the same repository. Jekyll will automatically generate all the needed folders.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Change multiple files to build your own website:
+    &lt;ul&gt;
+      &lt;li&gt;Update &lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt; to change global settings shown in the blog.&lt;/li&gt;
+      &lt;li&gt;Update &lt;code class=&quot;highlighter-rouge&quot;&gt;/css/main.css&lt;/code&gt; to make your own blog interface.&lt;/li&gt;
+      &lt;li&gt;Update &lt;code class=&quot;highlighter-rouge&quot;&gt;/_posts&lt;/code&gt; to add posts to the blog site.&lt;/li&gt;
+      &lt;li&gt;No need to update &lt;code class=&quot;highlighter-rouge&quot;&gt;/_site&lt;/code&gt;, as Github will automatically generate the website with current codes.&lt;/li&gt;
+      &lt;li&gt;No need to update &lt;code class=&quot;highlighter-rouge&quot;&gt;/_layout&lt;/code&gt;, it only defines the div of the blog site.&lt;/li&gt;
+      &lt;li&gt;Update &lt;code class=&quot;highlighter-rouge&quot;&gt;/_includes/head.html&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;/_includes/header.html&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;/_includes/footer.html&lt;/code&gt;, if unhappy with the div of current blog site.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;git push current codes, and github will present you your personal website.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;some-technical-details-about-building-with-jekyll&quot;&gt;Some technical details about building with Jekyll.&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;All the directories used in Jekyll are absolute directories, not comparative.&lt;/li&gt;
+  &lt;li&gt;The files which won’t be synced to github are recorded in &lt;code class=&quot;highlighter-rouge&quot;&gt;.gitignore&lt;/code&gt;, such as &lt;code class=&quot;highlighter-rouge&quot;&gt;/_site&lt;/code&gt;. Thus, while adding changes to github, should type &lt;code class=&quot;highlighter-rouge&quot;&gt;git add .&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;git add *&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Jekyll applies a nice &lt;a href=&quot;http://yaml.org&quot;&gt;YAML&lt;/a&gt; front matter block. As described in the document,&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;YAML ain’t markup language, YAML is a human friendly data serialization standard for all programming language.&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;p&gt;In my view, it’s more like java class. Which means, you can embed your frame and setup of website into another webpage using YAML. All the features of parent webpage will be inherited into children’s webpage.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Preface to this blog</title>
+   <link href="http://localhost:4000/jekyll/update/2015/12/22/preface-to-this-blog.html"/>
+   <updated>2015-12-22T16:18:00-05:00</updated>
+   <id>http://localhost:4000/jekyll/update/2015/12/22/preface-to-this-blog</id>
+   <content type="html">&lt;p&gt;Since Dec 20 2015, I have spent two days on building this blog on my github account with Jekyll. Now, I’ve got a personal webpage hosted on github with a static blog page and a demonstration page for my projects in the field of Physics or CompSci.&lt;/p&gt;
+
+&lt;p&gt;The main reason why I built this blog is to record down my personal progress and continuous thoughts in Physics and CompSci, also as a tool to boost my current interests in both topics. Although the curent interface looks plain, it deoesn’t affect its main usage, I’ll try to update the interface later. That’s it.&lt;/p&gt;
+
+&lt;p&gt;At last, to quote from one blog in Zhihu:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Writing is a second way to learn.&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Welcome to Jekyll!</title>
+   <link href="http://localhost:4000/jekyll/update/2015/12/20/welcome-to-jekyll.html"/>
+   <updated>2015-12-20T17:51:08-05:00</updated>
+   <id>http://localhost:4000/jekyll/update/2015/12/20/welcome-to-jekyll</id>
+   <content type="html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+
+&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+
+&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;
+
+</content>
+ </entry>
+ 
+ 
+</feed>

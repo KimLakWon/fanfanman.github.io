@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fan Zhang - Computer Vision Note 9</title>
+  <meta name="author" content="Fan Zhang" />
+  <meta name="description" content="The blog of Fan Zhang" />
+  <link rel="canonical" href="http://localhost:4000/computervision/2017/07/12/Computer-Vision-Note-9.html" />
+
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="alternate" type="application/atom+xml" title="Fan Zhang" href="http://localhost:4000/atom.xml" />
+
+  <link rel="stylesheet" href="/assets/css/all.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="four columns sidebar">
+      <nav>
+  <h1>Hi.</h1>
+  <a href="/">
+    
+    <img src="/logo.png" id="logo" alt="Blog logo" height="100px" width="100px"/>
+    
+  </a>
+  <h2>I'm <a href="/">Fan Zhang</a>.</h2>
+  <div id="bio">
+    <p>Here should be something witty, but clearly I don't have one.</p>
+    <p>Some of my projects could be found <a href="/project.html">here</a>.</p>
+  </div>
+  <div id="social">
+    Follow me:
+<div id="stalker">
+  
+  <a target="_blank" title="fanfanman on Github" href="https://github.com/fanfanman">
+    <i class="fa fa-github-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a title="Fan Zhang on Facebook" href="https://facebook.com/profile.php?id=100005663117201">
+    <i class="fa fa-facebook-square"></i>
+  </a>
+  
+
+  
+
+  
+  <a target="_blank" title="Fan Zhang on LinkedIn" href="https://www.linkedin.com/in/fan-zhang-88381a119">
+    <i class="fa fa-linkedin-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+  <a target="_blank" title="Atom feed" id="atom" href="/atom.xml">
+    <i class="fa fa-rss-square"></i>
+  </a>
+  
+</div>
+
+  </div>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <p class="meta">
+  July 12, 2017 
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">Computer Vision Note 9</h1>
+
+<div id="post">
+  <h3 id="lesson-3d-l1-image-to-image-projection">Lesson 3D-L1 Image to Image Projection</h3>
+<ul>
+  <li>Calibration is about projecting the 3D world to a 2D image, for the next few lessons, we are gonna learn about how to map one image to another.</li>
+  <li>Several operations: translations, similarity, euclidean, affine. All about matrix multiplications.</li>
+  <li>Projective transformations: for 2D images it’s a 3*3 matrix applied to homogeneous matrices (x, y, 1). According to different types of transformations, we need different pairs of points to map. For example, how many points do we need to do homography? Four to map each edge of rectangle to each edge on the other rectangle.</li>
+</ul>
+
+<h3 id="lesson-3d-l2-homographies-and-mozaics">Lesson 3D-L2 Homographies and Mozaics</h3>
+<ul>
+  <li>Usually there are eight degrees of freedom in homography transformations</li>
+  <li>The geometric meaning of using homogeneous matrix is because: each point (x, y) on the plane (at z=1) is represented by a  ray (sx, sy, s). All points on the ray are equivalent. Which means, points on the image plane (x, y, 1) is equivalent to a ray (sx, sy, s) in space coming from the center of projection (0, 0, 0) and intersecting the image plane (z=1).</li>
+  <li>Basic question: how to relate two images from the same camera center? Answer: Cast a ray through each pixel in PP1, then draw the pixel where that ray intersects PP2. So the only thing that matters is to know where the camera points.</li>
+  <li>Application: panorama. Procedure: Take a sequence of images from the same position; Compute transformation between second image and first; Transform the second image to overlap with the first; Blend the two together to create a mosaic (panorama).</li>
+  <li>The procedure of transforming the secodn image to overlap with the first is homography. In order to solve the homography operator, we need 4 pairs of points and use SVD method as discussed in section 3C-L3.</li>
+</ul>
+
+<h3 id="lesson-3d-l3-projective-geometry">Lesson 3D-L3 Projective Geometry</h3>
+<ul>
+  <li>The initiative to use homogeneous coordinates is that: each point (x, y) on the plane is represented by a ray (sx, sy, s).</li>
+  <li>In homogeneous coordinates, 2D lines ax+by+c=0 can be thought as dot product of two matrices (a,b,c) and (x,y,1) where l = (a, b, c) is a normal line.</li>
+  <li>Projective line: is a plane of rays through origin defined by the normal l = (a, b, c)</li>
+  <li>What is the line l spanned by rays p1 and p2? It should be perpendicular to l the normal line l = p1 cross p2.</li>
+</ul>
+
+<h3 id="lesson-3d-l4-essential-matrix">Lesson 3D-L4 Essential Matrix</h3>
+<ul>
+  <li>Problem: Given two views of a scene, what is the relationship between the location of a scene point in one image and its location in the other? We need to find out the matches (restraints)</li>
+  <li>Find pairs of points that correspond to same scene points: we need Epipolar Constraint, it reduces correspondence problem to 1D search along conjugate epipolar lines</li>
+  <li>terms:
+    <ul>
+      <li>baseline: line joining the camera centers</li>
+      <li>epipolar plane: plane containing baseline and world point</li>
+      <li>epipolar line: intersection of epipolar plane with the image plane - come in pairs</li>
+      <li>epipole: point of intersection of baseline with image plane</li>
+    </ul>
+  </li>
+  <li>The point is to transfer geometry into algebra.</li>
+  <li>Aside 1: vector cross product takes two vectors and returns a third vector that’s perpendicular to both inputs</li>
+  <li>Aside 2: Cross product can be redefined to a matrix operation.</li>
+  <li>In algebra, essential matrix relates point x in one image to correpondent point x’ in another image, x’Ex = 0. Where epipolar line l = EX. Essential matrix E = [Tx]R, where T is transformation between two cameras</li>
+</ul>
+
+<h3 id="lesson-3d-l5-fundamental-matrix">Lesson 3D-L5 Fundamental Matrix</h3>
+<ul>
+  <li>Main idea of weak calibration: estimate epipolar geometry from a (redundant) set of point correspondences between two uncalibrated cameras.</li>
+  <li>For uncalibrated cameras, we use fundamental matrix instead of essential matrix</li>
+  <li>Fundamental matrix is 3*3, singular, maps from a point to a line.</li>
+  <li>Fundamental matrix relates pixel coordinates in the two views, and is more general form than essential matrix, bc we remove the need to know intrinsic parameters</li>
+  <li>So if we estimate fundamental matrix from correspondences in pixel coordinates, we can reconstruct epipolar geometry without intrinsic or extrinsic parameters.</li>
+  <li>Each point correspondence generates one constraint on F.</li>
+  <li>There’s a very unstable algorithm called Eight-point algorithm to solve F.</li>
+  <li>Summary:
+    <ul>
+      <li>For 2-views, there is a geometric relationship that defines the relation between rays in one view to rays in the other - epipolar geometry</li>
+      <li>These relationships can be captured algebraically as well: calibrated - essential matrix; uncalibrated - fundamental matrix</li>
+      <li>This relation can be estimated from point correspondences.</li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+    <li>
+      <span>14 Jul 2017 &raquo;</span> <a href="/computervision/2017/07/14/Computer-Vision-Note-10.html">Computer Vision Note 10</a>
+    </li>
+    
+    <li>
+      <span>08 Jul 2017 &raquo;</span> <a href="/jekyll/disqus/2017/07/08/Disqus-Setup.html">Disqus Setup Test</a>
+    </li>
+    
+    <li>
+      <span>08 Jul 2017 &raquo;</span> <a href="/computervision/2017/07/07/Computer-Vision-Note-8.html">Computer Vision Note 8</a>
+    </li>
+    
+  </ul>
+</div>
+
+
+
+
+      
+  <br>
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+    this.page.url = "https://fanfanman.github.io";  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+              
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://fanfanman.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+      <div class="footer">
+        <div class="disclaimer">
+  
+  <p>
+    The postings on this site are Fan's learning notes about CompSci and Physics, only for personal use.
+  </p>
+  
+
+  <p>
+    © Fan Zhang, 2016 &mdash; built with <a href="http://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/swanson/lagom">Lagom theme</a>
+  </p>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fan Zhang - Computer Vision Note 10</title>
+  <meta name="author" content="Fan Zhang" />
+  <meta name="description" content="The blog of Fan Zhang" />
+  <link rel="canonical" href="http://localhost:4000/computervision/2017/07/14/Computer-Vision-Note-10.html" />
+
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="alternate" type="application/atom+xml" title="Fan Zhang" href="http://localhost:4000/atom.xml" />
+
+  <link rel="stylesheet" href="/assets/css/all.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="four columns sidebar">
+      <nav>
+  <h1>Hi.</h1>
+  <a href="/">
+    
+    <img src="/logo.png" id="logo" alt="Blog logo" height="100px" width="100px"/>
+    
+  </a>
+  <h2>I'm <a href="/">Fan Zhang</a>.</h2>
+  <div id="bio">
+    <p>Here should be something witty, but clearly I don't have one.</p>
+    <p>Some of my projects could be found <a href="/project.html">here</a>.</p>
+  </div>
+  <div id="social">
+    Follow me:
+<div id="stalker">
+  
+  <a target="_blank" title="fanfanman on Github" href="https://github.com/fanfanman">
+    <i class="fa fa-github-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a title="Fan Zhang on Facebook" href="https://facebook.com/profile.php?id=100005663117201">
+    <i class="fa fa-facebook-square"></i>
+  </a>
+  
+
+  
+
+  
+  <a target="_blank" title="Fan Zhang on LinkedIn" href="https://www.linkedin.com/in/fan-zhang-88381a119">
+    <i class="fa fa-linkedin-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+  <a target="_blank" title="Atom feed" id="atom" href="/atom.xml">
+    <i class="fa fa-rss-square"></i>
+  </a>
+  
+</div>
+
+  </div>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <p class="meta">
+  July 14, 2017 
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">Computer Vision Note 10</h1>
+
+<div id="post">
+  <h3 id="lesson-4a-l1-introduction-to-features">Lesson 4A-L1 Introduction to “features”</h3>
+<ul>
+  <li>Suppose I have two images related by some transformation, or have two images of the same object in different positions, How to find the transformation of iamge 1 that would align with image 2? We need to find correspondences, Local Features.</li>
+  <li>Goal: find points in an image that can be found in other images; found precisely - well localized; found reliably - well matched.</li>
+  <li>Why? Want to compute a fundamental matrix to recover geometry; allow computation of how camera moved -&gt; depth -&gt; moving objects. This is called point matching problem.</li>
+  <li>Matching process: detect features in both images; match feature - find corresponding pair; use these pairs to align images.
+    <ul>
+      <li>Problem 1: how to detect the same point independently in both? We need a repeatable detector.</li>
+      <li>Problem 2: For each point correctly recognize the corresponding one? We need a reliable and distinctive descriptor.</li>
+    </ul>
+  </li>
+  <li>Characteristics of good features: repeatability/precision, Saliency/Matchability/Uniquenss, Compactness/Efficiency, Locality/SmallArea</li>
+</ul>
+
+<h3 id="lesson-4a-l2-finding-corners">Lesson 4A-L2 Finding Corners</h3>
+<ul>
+  <li>Basic idea: we need a change in gradience in more than one direction.</li>
+  <li>Harris corners: approximation model and error model: calculate the diff between intensity at a point and intensity at a slightly shifted point, which is like calculating derivative of gradience.</li>
+  <li>There’s a lot of math and matrix operations, check wikipedia for more info.</li>
+  <li>Harris detector algorithm:
+    <ul>
+      <li>Compute Gaussian derivatives at each pixel</li>
+      <li>Compute second moment matrix M in a Gaussian window around each pixel</li>
+      <li>Compute corner response function R</li>
+      <li>Threshold R</li>
+      <li>Find local maxima of response function (nonmaximum suppression)</li>
+    </ul>
+  </li>
+  <li>Other corners: Shi-Tomasi 94</li>
+</ul>
+
+<h3 id="lesson-4a-l3-scale-invariance">Lesson 4A-L3 Scale Invariance</h3>
+<ul>
+  <li>Some properties about harris detector: mostly invariant to additive and multiplicative intensity cahnges, but may have threshold issue for multiplicative; invariant to image scale</li>
+  <li>How to scale pictures to the same size to reach scale invariance?</li>
+  <li>One method: at a point, compute the scale invariant function over different size neighborhoods</li>
+  <li>Solution: design a function on the region, which is not affected by the size but will be the same for “corresponding regions”, even if they are at different sizes/scales. For example, use average intensity as a scale</li>
+  <li>Key point localization: general indea: find robust extremum (max of min) both in space and in scale.</li>
+</ul>
+
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+    <li>
+      <span>12 Jul 2017 &raquo;</span> <a href="/computervision/2017/07/12/Computer-Vision-Note-9.html">Computer Vision Note 9</a>
+    </li>
+    
+    <li>
+      <span>08 Jul 2017 &raquo;</span> <a href="/jekyll/disqus/2017/07/08/Disqus-Setup.html">Disqus Setup Test</a>
+    </li>
+    
+    <li>
+      <span>08 Jul 2017 &raquo;</span> <a href="/computervision/2017/07/07/Computer-Vision-Note-8.html">Computer Vision Note 8</a>
+    </li>
+    
+  </ul>
+</div>
+
+
+
+
+      
+  <br>
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+    this.page.url = "https://fanfanman.github.io";  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+              
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://fanfanman.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+      <div class="footer">
+        <div class="disclaimer">
+  
+  <p>
+    The postings on this site are Fan's learning notes about CompSci and Physics, only for personal use.
+  </p>
+  
+
+  <p>
+    © Fan Zhang, 2016 &mdash; built with <a href="http://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/swanson/lagom">Lagom theme</a>
+  </p>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>

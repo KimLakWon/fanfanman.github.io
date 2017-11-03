@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fan Zhang - Computer Graphics Learning Note 1</title>
+  <meta name="author" content="Fan Zhang" />
+  <meta name="description" content="The blog of Fan Zhang" />
+  <link rel="canonical" href="http://localhost:4000/jekyll/update/2016/11/07/Learning-note-1.html" />
+
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="alternate" type="application/atom+xml" title="Fan Zhang" href="http://localhost:4000/atom.xml" />
+
+  <link rel="stylesheet" href="/assets/css/all.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="four columns sidebar">
+      <nav>
+  <h1>Hi.</h1>
+  <a href="/">
+    
+    <img src="/logo.png" id="logo" alt="Blog logo" height="100px" width="100px"/>
+    
+  </a>
+  <h2>I'm <a href="/">Fan Zhang</a>.</h2>
+  <div id="bio">
+    <p>Here should be something witty, but clearly I don't have one.</p>
+    <p>Some of my projects could be found <a href="/project.html">here</a>.</p>
+  </div>
+  <div id="social">
+    Follow me:
+<div id="stalker">
+  
+  <a target="_blank" title="fanfanman on Github" href="https://github.com/fanfanman">
+    <i class="fa fa-github-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a title="Fan Zhang on Facebook" href="https://facebook.com/profile.php?id=100005663117201">
+    <i class="fa fa-facebook-square"></i>
+  </a>
+  
+
+  
+
+  
+  <a target="_blank" title="Fan Zhang on LinkedIn" href="https://www.linkedin.com/in/fan-zhang-88381a119">
+    <i class="fa fa-linkedin-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+  <a target="_blank" title="Atom feed" id="atom" href="/atom.xml">
+    <i class="fa fa-rss-square"></i>
+  </a>
+  
+</div>
+
+  </div>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <p class="meta">
+  November 07, 2016 
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">Computer Graphics Learning Note 1</h1>
+
+<div id="post">
+  <ul>
+  <li>Learning material is from <a href="https://www.cs.duke.edu/courses/compsci344/spring15/" target="_blank">DukeCS 344</a>. And, a schedule is recorded <a href="../../../2016/11/07/Starting-to-learn-computer-graphics.html" target="_blank">here</a>.</li>
+  <li>PPTS are <a href="https://web.ics.purdue.edu/~zhan2600/assets/dukecs344/01intro.pdf" target="_blank">Overview</a>, <a href="https://www.cs.duke.edu/courses/compsci344/spring15/classwork/02_raytracing/" target="_blank">Intro to Raytracing</a>, <a href="http://www.siggraph.org/education/materials/HyperGraph/raytrace/rtrace0.htm" target="_blank">Ray Tracing Tutorial</a>.</li>
+</ul>
+
+<hr />
+
+<h2 id="overview">Overview</h2>
+<ul>
+  <li>Problems in graphics
+    <ul>
+      <li>2D imaging: compositing and layering, digital filtering, color transformations</li>
+      <li>2D drawing: illustration, drafting, text, GUIs</li>
+      <li>3D modeling: representing 3D shapes, procedural modeling</li>
+      <li>3D rendering: 2D views of 3D geometry, projection and perspective, remove hidden surfaces, lighting sumulation</li>
+      <li>Interaction: 2D graphical user interfaces, 3D modeling interfaces, virtual reality</li>
+      <li>Animation: keyframe animation, physical simulation</li>
+    </ul>
+  </li>
+  <li>In one sentence: How to use computer to draw as real as possible and maximize production.</li>
+</ul>
+
+<h2 id="intro-to-ray-tracing">Intro to Ray Tracing</h2>
+<ul>
+  <li>Purpose: use ray tracing to simulate 2D lighting images.</li>
+  <li>A simple illustration: <img src="http://web.ics.purdue.edu/~zhan2600/assets/dukecs344/raytracingalgorithm.png" alt="Raytracingalgorithm" />.</li>
+</ul>
+
+<h2 id="ray-tracing-tutorial">Ray Tracing Tutorial</h2>
+<ul>
+  <li>Principle: like scan-line graphics, ray tracing is a point sampling algorithm. We sample a continuous image in world coordinates by shooting one or more rays through each pixel, and the pixel is then set to the color values returned by the ray.</li>
+  <li>Example: in a simple example of a ball on a plane, there are basically four types of lighting modes. Background mode, shadow-on-bkg mode, illuminated-by-bkg-on-ball mode, and normal ball mode. <img src="http://web.ics.purdue.edu/~zhan2600/assets/dukecs344/raytracingill.gif" alt="Illustration" /></li>
+  <li>Complicated examples: In complicated models where there are more than one light sources and objects, it’d be better if we construct a tray tree, because there will be several reflected lights among objects. The reflective and/or transimitted rays are continually generated until the ray leaves the scene without hitting any object or a preset recursion level has been reached. Then we can modify local illumination model by a combination of reflected rays and transmitted rays at each tree node.</li>
+</ul>
+
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+    <li>
+      <span>14 Jul 2017 &raquo;</span> <a href="/computervision/2017/07/14/Computer-Vision-Note-10.html">Computer Vision Note 10</a>
+    </li>
+    
+    <li>
+      <span>12 Jul 2017 &raquo;</span> <a href="/computervision/2017/07/12/Computer-Vision-Note-9.html">Computer Vision Note 9</a>
+    </li>
+    
+    <li>
+      <span>08 Jul 2017 &raquo;</span> <a href="/jekyll/disqus/2017/07/08/Disqus-Setup.html">Disqus Setup Test</a>
+    </li>
+    
+  </ul>
+</div>
+
+
+
+
+      
+
+      <div class="footer">
+        <div class="disclaimer">
+  
+  <p>
+    The postings on this site are Fan's learning notes about CompSci and Physics, only for personal use.
+  </p>
+  
+
+  <p>
+    © Fan Zhang, 2016 &mdash; built with <a href="http://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/swanson/lagom">Lagom theme</a>
+  </p>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>
