@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  
  <title>The blog of Fan Zhang</title>
- <link href="http://localhost:4000/atom.xml" rel="self"/>
- <link href="http://localhost:4000"/>
- <updated>2017-11-03T01:18:19-04:00</updated>
- <id>http://localhost:4000</id>
+ <link href="http://fanfanman.me/atom.xml" rel="self"/>
+ <link href="http://fanfanman.me"/>
+ <updated>2017-11-03T01:32:39-04:00</updated>
+ <id>http://fanfanman.me</id>
  <author>
    <name>Fan Zhang</name>
    <email>aprilzhang1994@gmail.com</email>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>Computer Vision Note 10</title>
-   <link href="http://localhost:4000/computervision/2017/07/14/Computer-Vision-Note-10.html"/>
+   <link href="http://fanfanman.me/computervision/2017/07/14/Computer-Vision-Note-10.html"/>
    <updated>2017-07-14T20:45:00-04:00</updated>
-   <id>http://localhost:4000/computervision/2017/07/14/Computer-Vision-Note-10</id>
+   <id>http://fanfanman.me/computervision/2017/07/14/Computer-Vision-Note-10</id>
    <content type="html">&lt;h3 id=&quot;lesson-4a-l1-introduction-to-features&quot;&gt;Lesson 4A-L1 Introduction to “features”&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;Suppose I have two images related by some transformation, or have two images of the same object in different positions, How to find the transformation of iamge 1 that would align with image 2? We need to find correspondences, Local Features.&lt;/li&gt;
@@ -61,9 +61,9 @@
  
  <entry>
    <title>Computer Vision Note 9</title>
-   <link href="http://localhost:4000/computervision/2017/07/12/Computer-Vision-Note-9.html"/>
+   <link href="http://fanfanman.me/computervision/2017/07/12/Computer-Vision-Note-9.html"/>
    <updated>2017-07-12T20:45:00-04:00</updated>
-   <id>http://localhost:4000/computervision/2017/07/12/Computer-Vision-Note-9</id>
+   <id>http://fanfanman.me/computervision/2017/07/12/Computer-Vision-Note-9</id>
    <content type="html">&lt;h3 id=&quot;lesson-3d-l1-image-to-image-projection&quot;&gt;Lesson 3D-L1 Image to Image Projection&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;Calibration is about projecting the 3D world to a 2D image, for the next few lessons, we are gonna learn about how to map one image to another.&lt;/li&gt;
@@ -128,9 +128,9 @@
  
  <entry>
    <title>Disqus Setup Test</title>
-   <link href="http://localhost:4000/jekyll/disqus/2017/07/08/Disqus-Setup.html"/>
+   <link href="http://fanfanman.me/jekyll/disqus/2017/07/08/Disqus-Setup.html"/>
    <updated>2017-07-08T16:58:00-04:00</updated>
-   <id>http://localhost:4000/jekyll/disqus/2017/07/08/Disqus-Setup</id>
+   <id>http://fanfanman.me/jekyll/disqus/2017/07/08/Disqus-Setup</id>
    <content type="html">&lt;ul&gt;
   &lt;li&gt;Since Disqus is a popular feature to Jekyll blogs, I tried to add it to my personal site in this post.&lt;/li&gt;
   &lt;li&gt;The setup instructions could be found on Disqus website.&lt;/li&gt;
@@ -141,9 +141,9 @@
  
  <entry>
    <title>Computer Vision Note 8</title>
-   <link href="http://localhost:4000/computervision/2017/07/07/Computer-Vision-Note-8.html"/>
+   <link href="http://fanfanman.me/computervision/2017/07/07/Computer-Vision-Note-8.html"/>
    <updated>2017-07-08T00:45:00-04:00</updated>
-   <id>http://localhost:4000/computervision/2017/07/07/Computer-Vision-Note-8</id>
+   <id>http://fanfanman.me/computervision/2017/07/07/Computer-Vision-Note-8</id>
    <content type="html">&lt;h3 id=&quot;lesson-3c-l1-extrinsic-camera-parameters&quot;&gt;Lesson 3C-L1 Extrinsic Camera Parameters&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;This lesson is about how to project coordinate system to the camera.&lt;/li&gt;
@@ -177,9 +177,9 @@
  
  <entry>
    <title>Computer Vision Note 7</title>
-   <link href="http://localhost:4000/computervision/2017/07/02/Computer-Vision-Note-7.html"/>
+   <link href="http://fanfanman.me/computervision/2017/07/02/Computer-Vision-Note-7.html"/>
    <updated>2017-07-02T18:37:00-04:00</updated>
-   <id>http://localhost:4000/computervision/2017/07/02/Computer-Vision-Note-7</id>
+   <id>http://fanfanman.me/computervision/2017/07/02/Computer-Vision-Note-7</id>
    <content type="html">&lt;h3 id=&quot;lesson-3b-l1-stereo-geometry&quot;&gt;Lesson 3B-L1 Stereo Geometry&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;We need multiple views to determine real 3D depth of an object&lt;/li&gt;
@@ -210,9 +210,9 @@
  
  <entry>
    <title>Computer Vision Note 6</title>
-   <link href="http://localhost:4000/computervision/2017/07/01/Computer-Vision-Note-6.html"/>
+   <link href="http://fanfanman.me/computervision/2017/07/01/Computer-Vision-Note-6.html"/>
    <updated>2017-07-01T18:13:00-04:00</updated>
-   <id>http://localhost:4000/computervision/2017/07/01/Computer-Vision-Note-6</id>
+   <id>http://fanfanman.me/computervision/2017/07/01/Computer-Vision-Note-6</id>
    <content type="html">&lt;h3 id=&quot;lesson-3a-l1-cameras-and-images&quot;&gt;Lesson 3A-L1 Cameras and Images&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;Up till now, an image is a function, a 2D pattern of intensity values.&lt;/li&gt;
@@ -245,9 +245,9 @@
  
  <entry>
    <title>Computer Vision Note 5</title>
-   <link href="http://localhost:4000/computervision/2017/06/29/Computer-Vision-Note-5.html"/>
+   <link href="http://fanfanman.me/computervision/2017/06/29/Computer-Vision-Note-5.html"/>
    <updated>2017-06-29T15:44:00-04:00</updated>
-   <id>http://localhost:4000/computervision/2017/06/29/Computer-Vision-Note-5</id>
+   <id>http://fanfanman.me/computervision/2017/06/29/Computer-Vision-Note-5</id>
    <content type="html">&lt;h3 id=&quot;lesson-2c-l2-convolution-in-frequency-domain&quot;&gt;Lesson 2C-L2 Convolution in frequency domain&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;Fourier transform enables us to compress figures into a frequency domain.&lt;/li&gt;
@@ -272,9 +272,9 @@
  
  <entry>
    <title>Computer Vision Note 4</title>
-   <link href="http://localhost:4000/computervision/2017/05/26/Computer-Vision-Note-4.html"/>
+   <link href="http://fanfanman.me/computervision/2017/05/26/Computer-Vision-Note-4.html"/>
    <updated>2017-05-26T15:44:00-04:00</updated>
-   <id>http://localhost:4000/computervision/2017/05/26/Computer-Vision-Note-4</id>
+   <id>http://fanfanman.me/computervision/2017/05/26/Computer-Vision-Note-4</id>
    <content type="html">&lt;h3 id=&quot;lesson-2b-l3-generalized-hough-transform&quot;&gt;Lesson 2B-L3 Generalized Hough Transform&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;Non-analytic models: parameters express variation in pose of scale of fixed but arbitrary shape.&lt;/li&gt;
@@ -300,9 +300,9 @@
  
  <entry>
    <title>Computer Vision Note 3</title>
-   <link href="http://localhost:4000/computervision/2017/05/25/Computer-Vision-Note-3.html"/>
+   <link href="http://fanfanman.me/computervision/2017/05/25/Computer-Vision-Note-3.html"/>
    <updated>2017-05-25T15:25:00-04:00</updated>
-   <id>http://localhost:4000/computervision/2017/05/25/Computer-Vision-Note-3</id>
+   <id>http://fanfanman.me/computervision/2017/05/25/Computer-Vision-Note-3</id>
    <content type="html">&lt;h3 id=&quot;lesson-2a-l6-edge-detection-2d-operators&quot;&gt;Lesson 2A-L6 Edge detection: 2D operators&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;For a derivative operator, larger sigma of the operator will generate sharper edges and larger-scale edges&lt;/li&gt;
@@ -362,9 +362,9 @@ peaks = houghpeaks(accum, 100, 'Threshold', ceil(0.6*max(accum(:))), 'NHoodSize'
  
  <entry>
    <title>Computer Vision Note 2</title>
-   <link href="http://localhost:4000/computervision/2017/05/22/Computer-Vision-Note-2.html"/>
+   <link href="http://fanfanman.me/computervision/2017/05/22/Computer-Vision-Note-2.html"/>
    <updated>2017-05-22T17:22:00-04:00</updated>
-   <id>http://localhost:4000/computervision/2017/05/22/Computer-Vision-Note-2</id>
+   <id>http://fanfanman.me/computervision/2017/05/22/Computer-Vision-Note-2</id>
    <content type="html">&lt;h3 id=&quot;lesson-2a-l2-filtering&quot;&gt;Lesson 2A-L2 Filtering&lt;/h3&gt;
 &lt;p&gt;This lesson is about removing noise to recover real information. The method of averaging over nearby bins to get real info is called correlation filtering, there are also two types of averaging:&lt;/p&gt;
 &lt;ul&gt;
@@ -412,9 +412,9 @@ outim = imfilter(im, h)
  
  <entry>
    <title>Computer Vision Note 1</title>
-   <link href="http://localhost:4000/computervision/2017/05/18/Computer-Vision-Note-1.html"/>
+   <link href="http://fanfanman.me/computervision/2017/05/18/Computer-Vision-Note-1.html"/>
    <updated>2017-05-18T17:22:00-04:00</updated>
-   <id>http://localhost:4000/computervision/2017/05/18/Computer-Vision-Note-1</id>
+   <id>http://fanfanman.me/computervision/2017/05/18/Computer-Vision-Note-1</id>
    <content type="html">&lt;h3 id=&quot;overview&quot;&gt;Overview&lt;/h3&gt;
 &lt;p&gt;Well, it’s my second time trying to learn computer vision. Just a little bit interested in it.&lt;/p&gt;
 
@@ -483,9 +483,9 @@ outim = imfilter(im, h)
  
  <entry>
    <title>Computer Graphics Learning Note last one</title>
-   <link href="http://localhost:4000/jekyll/update/2016/11/26/deleted-code.html"/>
+   <link href="http://fanfanman.me/jekyll/update/2016/11/26/deleted-code.html"/>
    <updated>2016-11-26T16:22:00-05:00</updated>
-   <id>http://localhost:4000/jekyll/update/2016/11/26/deleted-code</id>
+   <id>http://fanfanman.me/jekyll/update/2016/11/26/deleted-code</id>
    <content type="html">&lt;p&gt;Well, the last time I opened the course directory, I found that the homework code directory is deleted by the teacher. F**k it!!!!!!
 Well, as a result, I will focus on research work for now, I guess…&lt;/p&gt;
 </content>
@@ -493,9 +493,9 @@ Well, as a result, I will focus on research work for now, I guess…&lt;/p&gt;
  
  <entry>
    <title>Computer Graphics Learning Note 2</title>
-   <link href="http://localhost:4000/jekyll/update/2016/11/11/Learning-note-2.html"/>
+   <link href="http://fanfanman.me/jekyll/update/2016/11/11/Learning-note-2.html"/>
    <updated>2016-11-11T16:22:00-05:00</updated>
-   <id>http://localhost:4000/jekyll/update/2016/11/11/Learning-note-2</id>
+   <id>http://fanfanman.me/jekyll/update/2016/11/11/Learning-note-2</id>
    <content type="html">&lt;p&gt;Readings are &lt;a href=&quot;http://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-ray-tracing/raytracing-algorithm-in-a-nutshell&quot; target=&quot;_blank&quot;&gt;Intro to Ray Tracing 2&lt;/a&gt;, &lt;a href=&quot;http://web.ics.purdue.edu/~zhan2600/assets/dukecs344/02lighting.pdf&quot; target=&quot;_blank&quot;&gt;Lighting PPT&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;intro-to-ray-tracing-2&quot;&gt;Intro to Ray Tracing 2&lt;/h2&gt;
@@ -542,9 +542,9 @@ Well, as a result, I will focus on research work for now, I guess…&lt;/p&gt;
  
  <entry>
    <title>Computer Graphics: How to Install JOGL in Eclipse Windows 7</title>
-   <link href="http://localhost:4000/jekyll/update/2016/11/08/JOGL-installation.html"/>
+   <link href="http://fanfanman.me/jekyll/update/2016/11/08/JOGL-installation.html"/>
    <updated>2016-11-08T13:00:00-05:00</updated>
-   <id>http://localhost:4000/jekyll/update/2016/11/08/JOGL-installation</id>
+   <id>http://fanfanman.me/jekyll/update/2016/11/08/JOGL-installation</id>
    <content type="html">&lt;h2 id=&quot;how-to-install-jogl-in-eclipse-windows-7&quot;&gt;How to install JOGL in Eclipse Windows 7&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;The official installation guide is attached &lt;a href=&quot;http://jogamp.org/wiki/index.php/Downloading_and_installing_JOGL&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/li&gt;
@@ -557,9 +557,9 @@ Well, as a result, I will focus on research work for now, I guess…&lt;/p&gt;
  
  <entry>
    <title>Computer Graphics Learning Note 1</title>
-   <link href="http://localhost:4000/jekyll/update/2016/11/07/Learning-note-1.html"/>
+   <link href="http://fanfanman.me/jekyll/update/2016/11/07/Learning-note-1.html"/>
    <updated>2016-11-07T13:00:00-05:00</updated>
-   <id>http://localhost:4000/jekyll/update/2016/11/07/Learning-note-1</id>
+   <id>http://fanfanman.me/jekyll/update/2016/11/07/Learning-note-1</id>
    <content type="html">&lt;ul&gt;
   &lt;li&gt;Learning material is from &lt;a href=&quot;https://www.cs.duke.edu/courses/compsci344/spring15/&quot; target=&quot;_blank&quot;&gt;DukeCS 344&lt;/a&gt;. And, a schedule is recorded &lt;a href=&quot;../../../2016/11/07/Starting-to-learn-computer-graphics.html&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/li&gt;
   &lt;li&gt;PPTS are &lt;a href=&quot;https://web.ics.purdue.edu/~zhan2600/assets/dukecs344/01intro.pdf&quot; target=&quot;_blank&quot;&gt;Overview&lt;/a&gt;, &lt;a href=&quot;https://www.cs.duke.edu/courses/compsci344/spring15/classwork/02_raytracing/&quot; target=&quot;_blank&quot;&gt;Intro to Raytracing&lt;/a&gt;, &lt;a href=&quot;http://www.siggraph.org/education/materials/HyperGraph/raytrace/rtrace0.htm&quot; target=&quot;_blank&quot;&gt;Ray Tracing Tutorial&lt;/a&gt;.&lt;/li&gt;
@@ -599,9 +599,9 @@ Well, as a result, I will focus on research work for now, I guess…&lt;/p&gt;
  
  <entry>
    <title>Starting to learn computer graphics</title>
-   <link href="http://localhost:4000/jekyll/update/2016/11/06/Starting-to-learn-computer-graphics.html"/>
+   <link href="http://fanfanman.me/jekyll/update/2016/11/06/Starting-to-learn-computer-graphics.html"/>
    <updated>2016-11-06T22:56:00-05:00</updated>
-   <id>http://localhost:4000/jekyll/update/2016/11/06/Starting-to-learn-computer-graphics</id>
+   <id>http://fanfanman.me/jekyll/update/2016/11/06/Starting-to-learn-computer-graphics</id>
    <content type="html">&lt;p&gt;Learning material is from &lt;a href=&quot;https://www.cs.duke.edu/courses/compsci344/spring15/&quot; target=&quot;_blank&quot;&gt;DukeCS 344&lt;/a&gt;.&lt;/p&gt;
 
 &lt;hr /&gt;
@@ -638,9 +638,9 @@ Well, as a result, I will focus on research work for now, I guess…&lt;/p&gt;
  
  <entry>
    <title>JavaScript Snake Game</title>
-   <link href="http://localhost:4000/jekyll/update/2016/01/04/javascript-snakegame.html"/>
+   <link href="http://fanfanman.me/jekyll/update/2016/01/04/javascript-snakegame.html"/>
    <updated>2016-01-04T12:00:00-05:00</updated>
-   <id>http://localhost:4000/jekyll/update/2016/01/04/javascript-snakegame</id>
+   <id>http://fanfanman.me/jekyll/update/2016/01/04/javascript-snakegame</id>
    <content type="html">&lt;script type=&quot;text/javascript&quot; src=&quot;https://code.jquery.com/jquery-1.7.1.min.js&quot;&gt;&lt;/script&gt;
 &lt;script type=&quot;text/javascript&quot; src=&quot;../../../../../assets/javascript/snakegame.js&quot;&gt;&lt;/script&gt;
 &lt;p&gt;This snake game is written in JavaScript after I've read the tutorial in &lt;a href=&quot;http://thecodeplayer.com/walkthrough/html5-game-tutorial-make-a-snake-game-using-html5-canvas-jquery&quot;&gt;This Link&lt;/a&gt;&lt;/p&gt;
@@ -651,9 +651,9 @@ Well, as a result, I will focus on research work for now, I guess…&lt;/p&gt;
  
  <entry>
    <title>JavaScript DOM 编程艺术</title>
-   <link href="http://localhost:4000/jekyll/update/2015/12/29/javascript-dom-programming-skill.html"/>
+   <link href="http://fanfanman.me/jekyll/update/2015/12/29/javascript-dom-programming-skill.html"/>
    <updated>2015-12-29T16:57:00-05:00</updated>
-   <id>http://localhost:4000/jekyll/update/2015/12/29/javascript-dom-programming-skill</id>
+   <id>http://fanfanman.me/jekyll/update/2015/12/29/javascript-dom-programming-skill</id>
    <content type="html">&lt;p&gt;&lt;a href=&quot;http://www.amazon.com/DOM-Scripting-Design-JavaScript-Document/dp/1430233893&quot;&gt;DOM Scripting&lt;/a&gt;: Web Design with JavaScript and the Document Object Model 读书笔记&lt;/p&gt;
 
 &lt;hr /&gt;
@@ -775,9 +775,9 @@ Well, as a result, I will focus on research work for now, I guess…&lt;/p&gt;
  
  <entry>
    <title>Head first HTML, CSS and XHTML</title>
-   <link href="http://localhost:4000/update/2015/12/25/head-first-html.html"/>
+   <link href="http://fanfanman.me/update/2015/12/25/head-first-html.html"/>
    <updated>2015-12-25T15:21:08-05:00</updated>
-   <id>http://localhost:4000/update/2015/12/25/head-first-html</id>
+   <id>http://fanfanman.me/update/2015/12/25/head-first-html</id>
    <content type="html">&lt;p&gt;相关书籍与网页:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -913,9 +913,9 @@ Well, as a result, I will focus on research work for now, I guess…&lt;/p&gt;
  
  <entry>
    <title>How to build a static blog with Jekyll</title>
-   <link href="http://localhost:4000/jekyll/update/2015/12/22/How-to-build-blog-with-jekyll.html"/>
+   <link href="http://fanfanman.me/jekyll/update/2015/12/22/How-to-build-blog-with-jekyll.html"/>
    <updated>2015-12-22T16:59:00-05:00</updated>
-   <id>http://localhost:4000/jekyll/update/2015/12/22/How-to-build-blog-with-jekyll</id>
+   <id>http://fanfanman.me/jekyll/update/2015/12/22/How-to-build-blog-with-jekyll</id>
    <content type="html">&lt;h3 id=&quot;why-do-we-build-a-blog-with-jekyll&quot;&gt;Why do we build a blog with Jekyll?&lt;/h3&gt;
 &lt;ol&gt;
   &lt;li&gt;The blog will be hosted freely on our free Github account, which removes the redundent process to request a domain name.&lt;/li&gt;
@@ -964,9 +964,9 @@ Well, as a result, I will focus on research work for now, I guess…&lt;/p&gt;
  
  <entry>
    <title>Preface to this blog</title>
-   <link href="http://localhost:4000/jekyll/update/2015/12/22/preface-to-this-blog.html"/>
+   <link href="http://fanfanman.me/jekyll/update/2015/12/22/preface-to-this-blog.html"/>
    <updated>2015-12-22T16:18:00-05:00</updated>
-   <id>http://localhost:4000/jekyll/update/2015/12/22/preface-to-this-blog</id>
+   <id>http://fanfanman.me/jekyll/update/2015/12/22/preface-to-this-blog</id>
    <content type="html">&lt;p&gt;Since Dec 20 2015, I have spent two days on building this blog on my github account with Jekyll. Now, I’ve got a personal webpage hosted on github with a static blog page and a demonstration page for my projects in the field of Physics or CompSci.&lt;/p&gt;
 
 &lt;p&gt;The main reason why I built this blog is to record down my personal progress and continuous thoughts in Physics and CompSci, also as a tool to boost my current interests in both topics. Although the curent interface looks plain, it deoesn’t affect its main usage, I’ll try to update the interface later. That’s it.&lt;/p&gt;
@@ -981,9 +981,9 @@ Well, as a result, I will focus on research work for now, I guess…&lt;/p&gt;
  
  <entry>
    <title>Welcome to Jekyll!</title>
-   <link href="http://localhost:4000/jekyll/update/2015/12/20/welcome-to-jekyll.html"/>
+   <link href="http://fanfanman.me/jekyll/update/2015/12/20/welcome-to-jekyll.html"/>
    <updated>2015-12-20T17:51:08-05:00</updated>
-   <id>http://localhost:4000/jekyll/update/2015/12/20/welcome-to-jekyll</id>
+   <id>http://fanfanman.me/jekyll/update/2015/12/20/welcome-to-jekyll</id>
    <content type="html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
 
 &lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
