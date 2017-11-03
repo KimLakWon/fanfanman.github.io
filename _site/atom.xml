@@ -4,7 +4,7 @@
  <title>The blog of Fan Zhang</title>
  <link href="http://fanfanman.me/atom.xml" rel="self"/>
  <link href="http://fanfanman.me"/>
- <updated>2017-11-03T01:32:39-04:00</updated>
+ <updated>2017-11-03T01:41:33-04:00</updated>
  <id>http://fanfanman.me</id>
  <author>
    <name>Fan Zhang</name>
@@ -969,7 +969,7 @@ Well, as a result, I will focus on research work for now, I guess…&lt;/p&gt;
    <id>http://fanfanman.me/jekyll/update/2015/12/22/preface-to-this-blog</id>
    <content type="html">&lt;p&gt;Since Dec 20 2015, I have spent two days on building this blog on my github account with Jekyll. Now, I’ve got a personal webpage hosted on github with a static blog page and a demonstration page for my projects in the field of Physics or CompSci.&lt;/p&gt;
 
-&lt;p&gt;The main reason why I built this blog is to record down my personal progress and continuous thoughts in Physics and CompSci, also as a tool to boost my current interests in both topics. Although the curent interface looks plain, it deoesn’t affect its main usage, I’ll try to update the interface later. That’s it.&lt;/p&gt;
+&lt;p&gt;The main reason why I built this blog is to record down my personal progress and continuous thoughts in Physics and CompSci, also as a tool to boost my current interests in both topics. Although the current interface looks plain, it doesn’t affect its main usage, I’ll try to update the interface later. That’s it.&lt;/p&gt;
 
 &lt;p&gt;At last, to quote from one blog in Zhihu:&lt;/p&gt;
 
