@@ -1,5 +1,5 @@
 # General Jekyll Config
 highlighter: rouge
-# url: http://fanfanman.me
+url: http://fanfanman.me
 lsi: false
 exclude: [LICENSE, CNAME, README.md, .gitignore, Gemfile, Gemfile.lock]
