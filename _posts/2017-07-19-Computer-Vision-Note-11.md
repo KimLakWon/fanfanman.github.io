@@ -11,4 +11,4 @@ tags:
 - Since we have found points of interest, how do we match them in pairs?
 - We need to describe them - a "descriptor"
 - To be continued after this semester ends
-
+- 
