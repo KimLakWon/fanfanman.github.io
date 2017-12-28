@@ -10,7 +10,8 @@ tags:
 ### Lesson 3D-L1 Image to Image Projection
 - Calibration is about projecting the 3D world to a 2D image, for the next few lessons, we are gonna learn about how to map one image to another.
 - Several operations: translations, similarity, euclidean, affine. All about matrix multiplications.
-- Projective transformations: for 2D images it's a 3*3 matrix applied to homogeneous matrices (x, y, 1). According to different types of transformations, we need different pairs of points to map. For example, how many points do we need to do homography? Four to map each edge of rectangle to each edge on the other rectangle.
+- Projective transformations: for 2D images it's a 3*3 matrix applied to homogeneous matrices (x, y, 1). According to different types of transformations, we need different pairs of points to map. For example, how many points do we need to do homography? Four to map each edge of rectangle to each edge on the other rectangle
+- What generates the error?
 
 ### Lesson 3D-L2 Homographies and Mozaics
 - Usually there are eight degrees of freedom in homography transformations
